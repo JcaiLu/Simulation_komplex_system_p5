@@ -1,0 +1,6 @@
+USEUNIT("Simulation1.cpp");
+USELIB("Plan.lib");
+//---------------------------------------------------------------------------
+Diese Datei wird nur vom Projekt-Manager verwendet und sollte wie die Projektdatei behandelt werden
+
+main
