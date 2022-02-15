@@ -7,35 +7,108 @@
 #include <vcl.h>
 #pragma hdrstop
 #include "Plan.h"
+#include "TIntFeld.h"
+
+
 
 class TUser : public TPlan {
+
 public:
 
-void Init(){
-       Scale(-1.5,4.5,0.0);
-       double y=IntToY(0)-4.0;
-       Scale(-1.5,4.5,-y/2);
+    TIntFeld Feld;
+    int PixelW; //PixelW = PixelH the wide and heigh are the same
+
+    int PlayScreenW,PlayScreenH;
+    int StartScreenToLeft;//the distance from the left PlayScreen to the left Frame
+    int StartScreenToRight;
+    int StartScreenToTop;//the distance from the top PlayScreen to the top Frame
+    int StartScreenToBottom;
 
 
-       Reset();}
 
- void Reset(){
-       Draw();}
 
-       void Draw(){
-       Clear();
-       SetPen(Grau,3);
-       MoveTo(0.0,0.0);LineTo(0.0,3.0);
-       SetPen(Schwarz);SetBrush(Schwarz);
-       Rectangle(-0.2,-4.0,0.4,4.0);
-       Rectangle(-0.2,4.0,0.4,4.0);
+    void Init(){
 
-       }
+        PixelW = 10;
+        StartScreenToLeft = (int)(GetMaxW()*0.05);
+        StartScreenToRight = (int)(GetMaxW()*0.5);
+        StartScreenToTop =(int)(GetMaxH()*0.1);
+        StartScreenToBottom =(int)(GetMaxH()*0.05);
+        PlayScreenW = (int)((GetMaxW() - StartScreenToLeft - StartScreenToRight)/10);
+        PlayScreenH = (int)((GetMaxH() - StartScreenToTop - StartScreenToBottom)/10);
+        Feld.Size(PlayScreenW,PlayScreenH);
+        SetPen(Schwarz);SetBrush(Weiss); SetTextSize(30);
+        Text((int)(GetMaxW()*0.25),(int)(GetMaxH()*0.05),"Feld of Sea"); //需要调整字体大小
+
+        DrawInit();
+
+    }
+
+    void Reset(){
+
+    }
+
+    void Run(){
+
+    }
+
+    void DrawInit(){
+
+        SetPen(Blau);SetBrush((TColor)(#0000BFFF));
+
+        for(int x = 0; x < PlayScreenW; x++){          //Spalten
+            for(int y = 0; y < PlayScreenH; y++  ){     //Zeilen
+                Rectangle(StartScreenToLeft+x*PixelW,StartScreenToTop+y*PixelW,PixelW,PixelW);
+            }
+        }
+
+    }
 
  };
 
+class PlayFeld : public TIntFeld{
 
 
+};
+
+class Animal{
+
+enum Richtung{
+    left.
+    right.
+
+
+}
+
+private:
+       int Code;//the code of animal
+       int Shape[10][10]; //the shape of the animal
+       double DegreeFull; //the degree of full
+       double DegreeLife;//the Degreeof Life
+
+
+public:
+
+
+      bool ifFull(){
+
+      }
+
+      bool ifLive(){
+
+      }
+
+
+
+};
+
+class Hai : public Animal{    //主要是要写里面的函数，
+
+};
+
+class Firsch : public Animal{
+
+};
 
 //====================================================================
 #pragma argsused
