@@ -79,11 +79,13 @@ class Animal{
 enum Richtung{left,right,up,down};
 
 private:
-       int Code;//the code of animal
+       int x,y;            //the location of this animal
+       int Code;           //the code of animal
        int Shape[10][10]; //the shape of the animal
        double DegreeFull; //the degree of full
        double DegreeLife;//the Degreeof Life
-
+       Richtung Direction;
+       float Speed;
 
 public:
 

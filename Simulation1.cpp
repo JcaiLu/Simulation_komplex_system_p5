@@ -72,6 +72,8 @@ public:
 class PlayFeld : public TIntFeld{
 
 
+
+
 };
 
 class Animal{
@@ -79,21 +81,39 @@ class Animal{
 enum Richtung{left,right,up,down};
 
 private:
-       int Code;//the code of animal
-       int Shape[10][10]; //the shape of the animal
+
+       int Code;           //the code of animal
+       int Shape[10][10]; //the shape of the animal----in order to draw it
        double DegreeFull; //the degree of full
        double DegreeLife;//the Degreeof Life
-
+       int x,y;            //the location of this animal
+       Richtung Direction;
+       float Speed;
 
 public:
 
-
-      bool ifFull(){
+      void detectFeld(){       //要写一下探测的方法
 
       }
 
-      bool ifLive(){
+      void judegObject(){      //判断探测的东西
 
+      }
+
+      bool ifFull(){
+          if( DegreeFull > 80%){
+              return true;
+          }else{
+              return false;
+          }
+      }
+
+      bool ifLive(){
+          if( DegreeLive > 80%){
+              return true;
+          }else{
+              return false;
+          }
       }
 
 
