@@ -54,10 +54,13 @@ public:
 
     void DrawInit(){
 
-        SetPen(Blau);SetBrush((TColor)(#0000BFFF));
 
-        for(int x = 0; x < PlayScreenW; x++){          //Spalten
-            for(int y = 0; y < PlayScreenH; y++  ){     //Zeilen
+        SetBrush(TColor(RGB(0,255,255)));
+        for(int y = 0; y < PlayScreenH; y++  ){     //Zeilen
+            for(int x = 0; x < PlayScreenW; x++){          //Spalten
+            int ColorDiff =255-(float)y/(float)PlayScreenH*100;
+            SetBrush(TColor(RGB(0,ColorDiff,255)));
+            SetPen(TColor(RGB(0,ColorDiff,255)));
                 Rectangle(StartScreenToLeft+x*PixelW,StartScreenToTop+y*PixelW,PixelW,PixelW);
             }
         }
@@ -73,12 +76,7 @@ class PlayFeld : public TIntFeld{
 
 class Animal{
 
-enum Richtung{
-    left.
-    right.
-
-
-}
+enum Richtung{left,right,up,down};
 
 private:
        int Code;//the code of animal
