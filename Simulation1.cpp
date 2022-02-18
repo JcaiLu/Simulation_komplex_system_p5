@@ -8,16 +8,15 @@
 #pragma hdrstop
 #include "Plan.h"
 #include "TIntFeld.h"
+#include "ObjectGroup.h"
 
 
-
-class TUser : public TPlan {
+class TUser : public TPlan{
 
 public:
 
     TIntFeld Feld;
-    int PixelW; //PixelW = PixelH the wide and heigh are the same
-
+    int PixelW; //PixelW = PixelH the wide and heigh of the each point are the same
     int PlayScreenW,PlayScreenH;
     int StartScreenToLeft;//the distance from the left PlayScreen to the left Frame
     int StartScreenToRight;
@@ -27,28 +26,30 @@ public:
 
 
 
+
     void Init(){
 
-        PixelW = 10;
-        StartScreenToLeft = (int)(GetMaxW()*0.05);
-        StartScreenToRight = (int)(GetMaxW()*0.5);
-        StartScreenToTop =(int)(GetMaxH()*0.1);
-        StartScreenToBottom =(int)(GetMaxH()*0.05);
-        PlayScreenW = (int)((GetMaxW() - StartScreenToLeft - StartScreenToRight)/10);
-        PlayScreenH = (int)((GetMaxH() - StartScreenToTop - StartScreenToBottom)/10);
-        Feld.Size(PlayScreenW,PlayScreenH);
-        SetPen(Schwarz);SetBrush(Weiss); SetTextSize(30);
-        Text((int)(GetMaxW()*0.25),(int)(GetMaxH()*0.05),"Feld of Sea"); //需要调整字体大小
+        Reset();
 
         DrawInit();
 
     }
 
     void Reset(){
-
+        PixelW = 20;
+        StartScreenToLeft = (int)(GetMaxW()*0.05);
+        StartScreenToRight = (int)(GetMaxW()*0.5);
+        StartScreenToTop =(int)(GetMaxH()*0.1);
+        StartScreenToBottom =(int)(GetMaxH()*0.05);
+        PlayScreenW = (int)((GetMaxW() - StartScreenToLeft - StartScreenToRight)/PixelW);
+        PlayScreenH = (int)((GetMaxH() - StartScreenToTop - StartScreenToBottom)/PixelW);
+        Feld.Size(PlayScreenW,PlayScreenH);
+        SetPen(Schwarz);SetBrush(Weiss); SetTextSize(30);               // adjust the size and color of the word
+        Text((int)(GetMaxW()*0.25),(int)(GetMaxH()*0.05),"Feld of Sea");
     }
 
     void Run(){
+
 
     }
 
@@ -60,75 +61,21 @@ public:
             for(int x = 0; x < PlayScreenW; x++){          //Spalten
             int ColorDiff =255-(float)y/(float)PlayScreenH*100;
             SetBrush(TColor(RGB(0,ColorDiff,255)));
-            SetPen(TColor(RGB(0,ColorDiff,255)));
+            SetPen(Schwarz);
+            //SetPen(TColor(RGB(0,ColorDiff,255)));
                 Rectangle(StartScreenToLeft+x*PixelW,StartScreenToTop+y*PixelW,PixelW,PixelW);
             }
         }
 
     }
 
+
  };
 
-class PlayFeld : public TIntFeld{
 
-
-
-
-};
-
-class Animal{
-
-enum Richtung{left,right,up,down};
-
-private:
-
-       int Code;           //the code of animal
-       int Shape[10][10]; //the shape of the animal----in order to draw it
-       double DegreeFull; //the degree of full
-       double DegreeLife;//the Degreeof Life
-       int x,y;            //the location of this animal
-       Richtung Direction;
-       float Speed;
-
-public:
-
-      void detectFeld(){       //要写一下探测的方法
-
-      }
-
-      void judegObject(){      //判断探测的东西
-
-      }
-
-      bool ifFull(){
-          if( DegreeFull > 80%){
-              return true;
-          }else{
-              return false;
-          }
-      }
-
-      bool ifLive(){
-          if( DegreeLive > 80%){
-              return true;
-          }else{
-              return false;
-          }
-      }
-
-
-
-};
-
-class Hai : public Animal{    //主要是要写里面的函数，
-
-};
-
-class Firsch : public Animal{
-
-};
 
 //====================================================================
 #pragma argsused
 int main(int argc, char* argv[]){ TUser a; a.Execute(); return 0; }
 //__________________________________________________________Ost08_____
+

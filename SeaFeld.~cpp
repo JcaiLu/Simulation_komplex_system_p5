@@ -1,0 +1,16 @@
+//---------------------------------------------------------------------------
+
+
+#pragma hdrstop
+#include "TIntFeld.h"
+
+#include "SeaFeld.h"
+#include "ObjectGroup.h"
+//---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+
+void drawFeld(){
+
+    
+}

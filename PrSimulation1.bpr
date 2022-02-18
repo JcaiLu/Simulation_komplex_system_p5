@@ -4,7 +4,7 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="PrSimulation1.exe"/>
-    <OBJFILES value="Simulation1.obj"/>
+    <OBJFILES value="Simulation1.obj ObjectGroup.obj SeaFeld.obj"/>
     <RESFILES value=""/>
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES)"/>
@@ -49,6 +49,8 @@
       <FILE FILENAME="PrSimulation1.bpf" FORMNAME="" UNITNAME="PrSimulation1" CONTAINERID="BPF" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Simulation1.cpp" FORMNAME="" UNITNAME="Simulation1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Plan.lib" FORMNAME="" UNITNAME="Plan" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ObjectGroup.cpp" FORMNAME="" UNITNAME="ObjectGroup" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SeaFeld.cpp" FORMNAME="" UNITNAME="SeaFeld" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

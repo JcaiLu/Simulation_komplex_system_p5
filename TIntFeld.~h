@@ -91,7 +91,7 @@ public:
                 for(j=0;j<M;j++) fprintf(O,"%d;",(*this)(i,j));}}
         fclose(O);
         return n*m;}
-
+      */
     int Read(char *fn=0){
         ForceCurrentDirectory = true;
         PlanString Fn;
@@ -116,7 +116,7 @@ public:
                 for(j=0;j<M;j++){
                     fscanf(I,"%d;",&k); (*this)(i,j) = k;}}}
         fclose(I);
-        return n*m;}   */
+        return n*m;}
 };
 
 #endif
