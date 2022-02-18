@@ -7,12 +7,12 @@
 class SeaFeld {
 
 public:
-       
+    
     int W,H;
-    
-    Object SeaFeldMatrix[W][H];   //the matrix of SeaFeld 
-    
+
     int StartPointX, StartPointY; //the Startpoint in real pixel
+    
+    void seaFeld();
 
     void drawFeld();
 
