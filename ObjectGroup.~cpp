@@ -2,31 +2,50 @@
 
 
 #include <vcl.h>
-#pragma hdrstop
 #include "Plan.h"
-
+#include "SeaFeld.h"
 #include "ObjectGroup.h"
 
 //---------------------------------------------------------------------------
 
-#pragma package(smart_init)
+Object::Object(int code){
 
-
-
-
-
-
-void Object::toDraw(){           //������Ӧ��ͼ��
-
-}
-
-
-void Object::detectFeld(){       //Ҫдһ��̽��ķ����������ζ��ķ����ԣ�
+    SeaFeld *a = new SeaFeld();
+    this->LocationInPixel[0] = a->StartScreenToLeft+this->X * a->PixelW;
+    this->LocationInPixel[1] = a->StartScreenToTop+this->Y *a->PixelW;
+    delete a;
+    Code = code;
 
 }
 
 
-void Object::judegObject(){      //�ж�̽��Ķ���
+int Object::getX(){
+   return X;
+}
+
+int Object::getY(){
+   return Y;
+}
+
+void Object::objectDraw(int ColorNum){
+    switch(this->Code){
+        case 0: ;
+               //SetBrushColor(Schwarz);
+               //SetPenColor(Schwarz);
+              // Rectangle(this->LocationInPixel[0],this->LocationInPixel[1],20,20);
+
+        case 1: ;//Rectangle(this->LocationInPixel[0],this->LocationInPixel[1],20,20);
+               //SetBrushColor(Schwarz);
+               //SetPenColor(Schwarz);
+    }
+}
+
+void Object::detectFeld(){       //
+
+}
+
+
+void Object::judegObject(){      //
 
 }
 
@@ -48,6 +67,45 @@ bool Object::ifLive(){
         }
 }
 
+void Object::objectencode(int t){
+    switch(t){
+        case 0 : break;
+    }
+}
+
+void Object::copyOf(Object t,int s){
+    this->Code = 1;
+    switch (this->Code){
+        case 0 :{
+                for(int i =0;i<20;i++){
+                      for(int j = 0;j <20;j++){
+                          this->Shape[i][j] = t.ShapeSea[i][j];
+                      }
+                   }
+                 }
+        case 1 :{
+                 for(int i =0;i<20;i++){
+                      for(int j = 0;j <20;j++){
+                          this->Shape[i][j] = t.ShapeFish[i][j];
+                      }
+                  }
+                 }
+        case 2 :{
+                  for(int i =0;i<20;i++){
+                      for(int j = 0;j <20;j++){
+                          this->Shape[i][j] = t.ShapeBigFish[i][j];
+                      }
+                    }
+                 }
+        case 3 :{
+                  for(int i =0;i<20;i++){
+                      for(int j = 0;j <20;j++){
+                          this->Shape[i][j] = t.ShapeHai[i][j];
+                      }
+                  }
+                 }
+    }
+}
 
 
 ShapeSea[20][20]={
@@ -71,12 +129,6 @@ ShapeSea[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-
-
-
-
-
 
 ShapeFish[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
