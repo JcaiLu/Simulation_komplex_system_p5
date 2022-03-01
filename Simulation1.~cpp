@@ -17,22 +17,26 @@ class TUser : public TPlan{
 
 public:
 
-    int GetMW,GetMH;
+    int getMW,getMH;
 
     SeaFeld Feld;
 
     
     void Init(){
 
-        GetMW = GetMaxW();
-        GetMH = GetMaxH();
-        Feld.FeldInit(GetMW,GetMH);
+        getMW = GetMaxW();
+        getMH = GetMaxH();
+        Feld.FeldInit(getMW,getMH);
         Reset();
         DrawInit();
 
-        Feld.creatObject(1,1,1);
-        Feld.getObject(1,1).objectDraw(0);
+        Feld.InitObject();
+        Feld.CreatObject(1,1,1);
+        Feld.CreatObject(0,0,0);
+        //ObjectDraw(Feld.GetObject(1,1),0);
 
+        Rectangle(Feld.GetObject(0,0).xInPixel,Feld.GetObject(0,0).yInPixel,20,20);
+        //Rectangle(Feld.GetObject(1,1).xInPixel,Feld.GetObject(1,1).yInPixel,20,20);
     }
 
     void Reset(){
@@ -47,18 +51,30 @@ public:
 
     void DrawInit(){
         SetBrush(TColor(RGB(0,255,255)));
-        for(int y = 0; y < Feld.H; y++  ){     //Zeilen
-            for(int x = 0; x < Feld.W; x++){          //Spalten
-            int ColorDiff =255-(float)y/(float)Feld.H*100;
-            SetBrushColor(TColor(RGB(0,ColorDiff,255)));
+        for(int y = 0; y < Feld.h; y++  ){     //Zeilen
+            for(int x = 0; x < Feld.w; x++){          //Spalten
+            int colorDiff =255-(float)y/(float)Feld.h*100;
+            SetBrushColor(TColor(RGB(0,colorDiff,255)));
             SetPenColor(Schwarz);
             //SetPen(TColor(RGB(0,ColorDiff,255)));
-                Rectangle(Feld.StartScreenToLeft+x*Feld.PixelW,Feld.StartScreenToTop+y*Feld.PixelW,Feld.PixelW,Feld.PixelW);
+                Rectangle(Feld.startScreenToLeft+x*Feld.pixelW,Feld.startScreenToTop+y*Feld.pixelW,Feld.pixelW,Feld.pixelW);
             }
         }
 
     }
 
+    void ObjectDraw(Object t,int colorNum){
+    switch(t.code){
+        case 0:SetBrush(Schwarz);
+               SetPen(Schwarz);
+               Rectangle(t.xInPixel,t.yInPixel,20,20);
+
+        case 1:SetBrush(Schwarz);
+               SetPen(Schwarz);
+               Rectangle(t.xInPixel,t.yInPixel,20,20);
+
+    }
+}
 
  };
 

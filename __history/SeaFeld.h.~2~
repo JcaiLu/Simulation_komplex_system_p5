@@ -1,0 +1,44 @@
+//---------------------------------------------------------------------------
+
+#ifndef SeaFeldH
+#define SeaFeldH
+//---------------------------------------------------------------------------
+#include "ObjectGroup.h"
+#include <vector>
+
+
+
+
+
+
+class SeaFeld{
+
+public:
+
+    int playScreenW,playScreenH;
+    int startScreenToBottom;
+    int startScreenToTop;//the distance from the top PlayScreen to the top Frame
+    int pixelW; //PixelW = PixelH the wide and heigh of the each point are the same
+    int startScreenToLeft;//the distance from the left PlayScreen to the left Frame
+    int startScreenToRight;
+    int w,h;
+    //int startPointX, startPointY; //the Startpoint in real pixel
+
+
+
+    std::vector<Object> matrix;
+
+    void FeldInit(int &getW,int &getH);
+    int XYIntoNum(int &x,int &y);   // transfer x,y into num of Vector
+    int NumIntoX(int &num);
+    int NumIntoY(int &num);
+    Object GetObject(int i, int j);
+    void InitObject();
+    void CreatObject(int m, int n,int code);
+
+
+};
+
+
+
+#endif

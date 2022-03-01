@@ -8,50 +8,53 @@
 
 //---------------------------------------------------------------------------
 
-Object::Object(int code){
+Object::Object(int px,int py,int c){
 
-    SeaFeld *a = new SeaFeld();
-    this->LocationInPixel[0] = a->StartScreenToLeft+this->X * a->PixelW;
-    this->LocationInPixel[1] = a->StartScreenToTop+this->Y *a->PixelW;
-    delete a;
-    Code = code;
+
+    this->x = px;
+	this->y = py;
+    this->code = c;
+    this->xInPixel = 0;
+	this->yInPixel = 0;
+}
+
+Object::Object(int c){
+    this->code = c;
+	this->xInPixel = 0;
+	this->yInPixel = 0;
+	this->x = 0;
+	this->y = 0;
+}
+
+
+int Object::GetX(){
+   return x;
+}
+
+int Object::GetY(){
+   return y;
+}
+void Object::ReadX(int value){
+   this->x = value;
+}
+
+void Object::ReadY(int value){
+   this->y = value;
+}
+
+
+void Object::DetectFeld(){       //
 
 }
 
 
-int Object::getX(){
-   return X;
-}
-
-int Object::getY(){
-   return Y;
-}
-
-void Object::objectDraw(int ColorNum){
-    switch(this->Code){
-        case 0: ;
-               //SetBrushColor(Schwarz);
-               //SetPenColor(Schwarz);
-              // Rectangle(this->LocationInPixel[0],this->LocationInPixel[1],20,20);
-
-        case 1: ;//Rectangle(this->LocationInPixel[0],this->LocationInPixel[1],20,20);
-               //SetBrushColor(Schwarz);
-               //SetPenColor(Schwarz);
-    }
-}
-
-void Object::detectFeld(){       //
+void Object::JudegObject(){      //
 
 }
 
 
-void Object::judegObject(){      //
-
-}
-
-
-bool Object::ifFull(){
-        if(this->DegreeFull>0.8){
+bool Object::IfFull(){
+        if(this->degreeFull>0.8){
             return true;
         }else{
             return false;
@@ -59,48 +62,48 @@ bool Object::ifFull(){
 }
 
 
-bool Object::ifLive(){
-        if(this->DegreeLife>0.8){
+bool Object::IfLive(){
+        if(this->degreeLife>0.8){
             return true;
         }else{
             return false;
         }
 }
 
-void Object::objectencode(int t){
+void Object::Objectencode(int t){
     switch(t){
         case 0 : break;
     }
 }
 
-void Object::copyOf(Object t,int s){
-    this->Code = 1;
-    switch (this->Code){
-        case 0 :{
+void Object::CopyOf(int t){
+	this->code = t;
+    switch (this->code){
+		case 0 :{
                 for(int i =0;i<20;i++){
-                      for(int j = 0;j <20;j++){
-                          this->Shape[i][j] = t.ShapeSea[i][j];
+					  for(int j = 0;j <20;j++){
+						  this->shape[i][j] = this->shapeSea[i][j];
                       }
                    }
                  }
         case 1 :{
                  for(int i =0;i<20;i++){
                       for(int j = 0;j <20;j++){
-                          this->Shape[i][j] = t.ShapeFish[i][j];
+						  this->shape[i][j] = this->shapeFish[i][j];
                       }
                   }
                  }
         case 2 :{
                   for(int i =0;i<20;i++){
                       for(int j = 0;j <20;j++){
-                          this->Shape[i][j] = t.ShapeBigFish[i][j];
+						  this->shape[i][j] = this->shapeBigFish[i][j];
                       }
                     }
                  }
         case 3 :{
                   for(int i =0;i<20;i++){
                       for(int j = 0;j <20;j++){
-                          this->Shape[i][j] = t.ShapeHai[i][j];
+                          this->shape[i][j] = this->shapeHai[i][j];
                       }
                   }
                  }
@@ -108,7 +111,7 @@ void Object::copyOf(Object t,int s){
 }
 
 
-ShapeSea[20][20]={
+shapeSea[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -130,7 +133,7 @@ ShapeSea[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-ShapeFish[20][20]={
+shapeFish[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -152,7 +155,7 @@ ShapeFish[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-ShapeBigFish[20][20]={
+shapeBigFish[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,
@@ -174,7 +177,7 @@ ShapeBigFish[20][20]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-ShapeHai[20][20]={
+shapeHai[20][20]={
 0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,3,3,3,3,3,3,3,0,0,0,0,0,0,0,0,
 3,0,0,0,3,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,

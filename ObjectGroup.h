@@ -10,35 +10,42 @@ class Object{
 
 
 public:
-    Object(int code);
-    int ShapeSea[20][20];
-    int ShapeBigFish[20][20];
-    int ShapeFish[20][20];
-    int ShapeHai[20][20];
-    int Code;           //the code of animal
+    Object(int px,int py,int c);
+    Object(int c);
+	Object();
+    int code;           //the code of animal
+    int xInPixel;
+    int yInPixel;
+    int x,y;         //the location of this animal
+    int shape[20][20];
 
-    int LocationInPixel[2];
-    double DegreeFull; //the degree of full
-    double DegreeLife;//the Degreeof Life
+    double degreeFull; //the degree of full
+    double degreeLife;//the Degreeof Life
 
     char Direction;    //w(up),s(down),a(left),d(right)
     float Speed;
 
-    int Shape[20][20];
+public:
+    int GetX();
+    int GetY();
+	void ReadX(int value);
+	void ReadY(int value);
 
+	void Objectencode(int t);
+	void ObjectDraw(int ColorNum);    //ColorNum is used to reload the color of sea
+	void CopyOf(int t);
+	void CodeShapeUpdate();
 
-    int X,Y;         //the location of this animal
-    void detectFeld();
-    void judegObject();
-    bool ifFull();
-    bool ifLive();
-    int getX();
-    int getY();
+	bool IfFull();
+	bool IfLive();
+	void DetectFeld();
+	void JudegObject();
+	void DefShape();
 
-    void objectencode(int t);
-    void objectDraw(int ColorNum);    //ColorNum is used to reload the color of sea
-    void copyOf(Object t,int s);
-
+static const int shapeSea[20][20];
+static const int shapeFish[20][20];
+static const int shapeBigFish[20][20];
+static const int shapeHai[20][20];
 };
 
 

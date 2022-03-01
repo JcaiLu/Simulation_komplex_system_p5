@@ -1,0 +1,40 @@
+1.二维数组置零
+
+memset(a,0,sizeof(a));
+
+2.C++能不能在类中定义一个私有的静态常量数组？
+
+但是需要注意一下，上面的静态常量变量，除了int型以及枚举型可以由一个int常量表达式在类定义中初始化以外，其余都要在实现文件中显式初始化，并且在初始化时，前面必须有const关键字申明。
+因此，如果你定义的是静态常量数组，则必须如下：
+在.h文件中
+#include <string>
+class A{
+public:
+...
+private:
+static const string array[3];
+}
+在.cpp文件中
+const string A::array[3] = {"ab","bc","db"};
+这样做是因为，虽然const常量必须在定义的时候赋值，但是它的前面又有static关键字，因此，也就带有了静态的性质，即必须在类定义外显式定义（当然除了上面说的int型和枚举）
+
+3.为什么要用const &
+When you pass a parameter by const type & (pass by reference) like this:
+
+void printStudent(const Student &s) 
+{ 
+    cout << s.name << "  " << s.address << "  " << s.rollNo; 
+} 
+
+int main(){
+    Student s1;
+    printStudent(s1);
+    return 0;
+}
+Benefits are:
+
+Work easily with object(don't think about pointers)
+It does not copy the Student object(so it is fast)
+You can not create a new student and assign it to s variable. if you write s=new Student(); the compiler error will happen. So the caller can pass the variable with more confidence.
+The parameter can not be null.
+
