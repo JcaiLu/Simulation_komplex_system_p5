@@ -66,8 +66,8 @@ void SeaFeld::InitObject(){
 			//int k = this->XYIntoNum(i,j);
 			initObject.xInPixel = this->startScreenToLeft+i*this->pixelW;
 			initObject.yInPixel = this->startScreenToTop+j*this->pixelW;
-			initObject.x = i;
-			initObject.y = j;
+			initObject.X = i;
+			initObject.Y = j;
 			this->matrix.push_back(initObject);
 		}
 	}
@@ -87,45 +87,45 @@ void SeaFeld::DestoryObject(int num){
 
 void SeaFeld::MoveObject(Object object,const char &c){
 	int oldNum = 0;
-	oldNum = this->XYIntoNum(object.x,object.y);
+	oldNum = this->XYIntoNum(object.X,object.Y);
 	int newX = 0;
 	int newY = 0;
 	int newNum = 0;
 	switch(c){
-		case 'w': if(object.y == 0){
-					  newX = object.x;
+		case 'w': if(object.Y == 0){
+					  newX = object.X;
 					  newY = this->h;
 
 				  }else{
-					  newX = object.x;
-					  newY = object.y-1;
+					  newX = object.X;
+					  newY = object.Y-1;
 				  }
 				 break;
-		case 's':if(object.y == this->h){
-					  newX = object.x;
+		case 's':if(object.Y == this->h){
+					  newX = object.X;
 					  newY = 0;
 
 				  }else{
-					  newX = object.x;
-					  newY = object.y+1;
+					  newX = object.X;
+					  newY = object.Y+1;
 				  }
 				 break;
-		  case 'a':if(object.x == 0){
+		  case 'a':if(object.X == 0){
 					  newX = this->w;
-					  newY = object.y;
+					  newY = object.Y;
 
 				  }else{
-					  newX = object.x-1;
-					  newY = object.y;
+					  newX = object.X-1;
+					  newY = object.Y;
 				  }
 				 break;
-		  case 'd':if(object.x == this->w){
+		  case 'd':if(object.X == this->w){
 					  newX = 0;
-					  newY = object.y;
+					  newY = object.Y;
 
 				  }else{
-					  newX = object.x+1;
-					  newY = object.y;
+					  newX = object.X+1;
+					  newY = object.Y;
 				  }
 				 break;
 
@@ -140,10 +140,40 @@ void SeaFeld::MoveObject(Object object,const char &c){
 
 void SeaFeld::KeepMoveObject(Object object,const char &c){
 
+}
 
 
+bool SeaFeld::MaxFishLocation(const Object &object){
 
+	 int tx,ty,bx,by;
+	 int max = 0;
+	 int num = 0;
+	 if(object.detectFeld[0]<0){tx = 0;}
+	 if(object.detectFeld[1]>this->w){bx = this->w;}
+	 if(object.detectFeld[0]<0){ty = 0;}
+	 if(object.detectFeld[0]>this->h){bx = this->h;}
 
+	 for(int j = ty; j<by+1;j++ ){
+		 for(int i = tx;i<bx+1;i++){
+			 num = this->XYIntoNum(i,j);
+			 if(this->matrix[num].fishScale>max){
+				 max =this->matrix[num].fishScale;
+			 }
+		 }
+	 }
 
+	 if(max = 0){
+		 return false;
+	 }else{
+		 return true;
+	 }
+}
+
+////////////需要补充
+void SeaFeld::Catch(){
+
+}
+////////////需要补充
+void SeaFeld::RunAway(){
 
 }

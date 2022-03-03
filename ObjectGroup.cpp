@@ -12,18 +12,18 @@
 
 
 int Object::GetX(){
-   return x;
+   return X;
 }
 
 int Object::GetY(){
-   return y;
+   return Y;
 }
 void Object::ReadX(int value){
-   this->x = value;
+   this->X = value;
 }
 
 void Object::ReadY(int value){
-   this->y = value;
+   this->Y = value;
 }
 
 
@@ -47,16 +47,16 @@ bool Object::IfFull(){
 
 
 bool Object::IfLive(){
-        if(this->degreeLife>0.8){
+		if(this->degreeLife>0.8){
             return true;
         }else{
-            return false;
+			return false;
         }
 }
 
 void Object::Objectencode(int t){
     switch(t){
-        case 0 : break;
+		case 0 : break;
     }
 }
 
@@ -97,6 +97,8 @@ void Object::CopyOf(int t){
 				 break;
 	}
 }
+
+
 void Object::CodeShapeUpdate(){
 	switch (this->code){
 		case 0 :{
@@ -135,22 +137,86 @@ void Object::CodeShapeUpdate(){
 }
 
 Object::Object(int px,int py,int c){
-	this->x = px;
-	this->y = py;
+	this->X = px;
+	this->Y = py;
 	this->code = c;
+	this->GetDetectRange();
 	this->xInPixel = 0;
 	this->yInPixel = 0;
+	this->fishScale = 0;
 	memset(this->shape,0,sizeof(this->shape)) ;
+
 }
 
 Object::Object(int c){
 	this->code = c;
+	this->GetDetectRange();
 	this->xInPixel = 0;
 	this->yInPixel = 0;
-	this->x = 0;
-	this->y = 0;
+	this->X = 0;
+	this->Y = 0;
+	this->fishScale = 0;
 	memset(this->shape,0,sizeof(this->shape)) ;
 }
+////////////////////////////////////////////////////////////////
+void Object::GetDetectRange(){               	///ĞŞ¸ÄÌ½²â·¶Î§
+	switch(this->code){
+		case 0:this->detectRange = 0;
+			   break;
+		case 1:this->detectRange = 1;
+			   break;
+		case 2:this->detectRange = 2;
+			   break;
+		case 3:this->detectRange = 3;
+			   break;
+	}
+
+}
+//////////////////
+//detectFeld[4] = {A,B,C,D}
+//(A,C)..........
+//...............
+//..............
+//...........(B,D)
+
+void Object::GetDetectFeld(){
+	 this->GetDetectRange();
+	 int Range = this->detectRange;
+	 this->detectFeld[0] = this->X - Range;
+	 this->detectFeld[1] = this->X + Range;
+	 this->detectFeld[2] = this->Y - Range;
+	 this->detectFeld[3] = this->Y + Range;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

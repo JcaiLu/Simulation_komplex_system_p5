@@ -15,14 +15,14 @@ public:
 	Object();
     int code;           //the code of animal
     int xInPixel;
-    int yInPixel;
-    int x,y;         //the location of this animal
-    int shape[20][20];
+	int yInPixel;
+	int X,Y;         //the location of this animal
+	int shape[20][20];
 
     double degreeFull; //the degree of full
     double degreeLife;//the Degreeof Life
 
-    char Direction;    //w(up),s(down),a(left),d(right)
+	char Direction;    //w(up),s(down),a(left),d(right)
     float Speed;
 
 public:
@@ -42,10 +42,20 @@ public:
 	void JudegObject();
 	void DefShape();
 
-static const int shapeSea[20][20];
-static const int shapeFish[20][20];
-static const int shapeBigFish[20][20];
-static const int shapeHai[20][20];
+	static const int shapeSea[20][20];
+	static const int shapeFish[20][20];
+	static const int shapeBigFish[20][20];
+	static const int shapeHai[20][20];
+
+	int detectRange;           /////自身属性
+	void GetDetectRange();
+
+	int detectFeld[4];             /////根据位置的变动的探测范围
+	void GetDetectFeld();
+
+	int fishScale;
+
+
 };
 
 
