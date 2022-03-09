@@ -12,7 +12,7 @@
 #pragma package(smart_init)
 
 void SeaFeld::FeldInit(int &getW,int &getH){
-    this->pixelW = 20;
+	this->pixelW = 10;
     this->startScreenToLeft = (int)(getW*0.05);
 	this->startScreenToRight = (int)(getW*0.5);
     this->startScreenToTop =(int)(getH*0.1);
@@ -162,7 +162,7 @@ bool SeaFeld::MaxFishLocation(const Object &object){
 		 }
 	 }
 
-	 if(max = 0){
+	 if(max == 0){
 		 return false;
 	 }else{
 		 return true;

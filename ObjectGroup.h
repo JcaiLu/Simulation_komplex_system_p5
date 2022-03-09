@@ -17,17 +17,17 @@ public:
     int xInPixel;
 	int yInPixel;
 	int X,Y;         //the location of this animal
-	int shape[20][20];
+	int shape[10][10];
 
-    double degreeFull; //the degree of full
-    double degreeLife;//the Degreeof Life
+	double degreeFull; //the degree of full
+	double degreeLife;//the Degreeof Life
 
 	char Direction;    //w(up),s(down),a(left),d(right)
-    float Speed;
+	float Speed;
 
 public:
-    int GetX();
-    int GetY();
+	int GetX();
+	int GetY();
 	void ReadX(int value);
 	void ReadY(int value);
 
@@ -42,10 +42,10 @@ public:
 	void JudegObject();
 	void DefShape();
 
-	static const int shapeSea[20][20];
-	static const int shapeFish[20][20];
-	static const int shapeBigFish[20][20];
-	static const int shapeHai[20][20];
+	static const int shapeSea[10][10];
+	static const int shapeFish[10][10];
+	static const int shapeBigFish[10][10];
+	static const int shapeHai[10][10];
 
 	int detectRange;           /////◊‘…Ì Ù–‘
 	void GetDetectRange();

@@ -19,7 +19,7 @@ class TUser : public TPlan{
 public:
 
     int getMW,getMH;
-	int xxxxx;
+
     SeaFeld Feld;
 	static const char d = 'd';
     
@@ -27,8 +27,8 @@ public:
 
         getMW = GetMaxW();
         getMH = GetMaxH();
-        Feld.FeldInit(getMW,getMH);
-        Reset();
+		Feld.FeldInit(getMW,getMH);
+		Reset();
 		DrawInit();
 		ChartInit();
 
@@ -61,10 +61,10 @@ public:
 		SetBrush(TColor(RGB(0,255,255)));
 		for(int y = 0; y < Feld.h; y++  ){     //Zeilen
 			for(int x = 0; x < Feld.w; x++){          //Spalten
-			int colorDiff =255-(float)y/(float)Feld.h*100;
-			SetBrushColor(TColor(RGB(0,colorDiff,255)));
-			//SetPenColor(Schwarz);
-			SetPen(TColor(RGB(0,colorDiff,255)));
+				int colorDiff =255-(float)y/(float)Feld.h*100;
+				SetBrush(TColor(RGB(0,colorDiff,255)));
+				//SetPen(Schwarz);
+				SetPen(TColor(RGB(0,colorDiff,255)));
 				Rectangle(Feld.startScreenToLeft+x*Feld.pixelW,Feld.startScreenToTop+y*Feld.pixelW,Feld.pixelW,Feld.pixelW);
 			}
 		}
