@@ -12,7 +12,7 @@
 #pragma package(smart_init)
 
 void SeaFeld::Update(){
-	for(int i = 0; i< this->matrix.Size();i++){
+	for(int i = 0; i < this->matrix.size();i++){
 		if (this->matrix[i].code == 3) {
 			if(this->TargetLocation(this->matrix[i])){
 
@@ -162,14 +162,12 @@ void SeaFeld::KeepMoveObject(Object object,const char &c){
 
 bool SeaFeld::TargetLocation(const Object &object){
 
-	 int tx,ty,bx,by;
+	 int tx,ty,bx,by,num;
+	 tx = object.detectFeld[0];
+	 bx = object.detectFeld[1];
+	 ty = object.detectFeld[2];
+	 by = object.detectFeld[3];
 	 int max = 0;
-	 int num = 0;
-	 if(object.detectFeld[0]<0){tx = 0;}
-	 if(object.detectFeld[1]>this->w){bx = this->w;}
-	 if(object.detectFeld[0]<0){ty = 0;}
-	 if(object.detectFeld[0]>this->h){bx = this->h;}
-
 	 for(int j = ty; j<by+1;j++ ){
 		 for(int i = tx;i<bx+1;i++){
 			 num = this->XYIntoNum(i,j);
@@ -186,7 +184,12 @@ bool SeaFeld::TargetLocation(const Object &object){
 	 }
 }
 //////////// 需要补充
-
+void SeaFeld::Move(int x,int y){      //Movement
+	 int num = this->XYIntoNum(x,y);
+	 int targetX, targetY;
+	 targetX = this->matrix[num].target[0];
+	 targetY = this->matrix[num].target[1];
+}
 
 ////////////需要补充
 void SeaFeld::Catch(){

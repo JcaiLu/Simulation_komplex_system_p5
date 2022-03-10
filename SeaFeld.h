@@ -42,10 +42,7 @@ public:
 
 	void MoveObject(Object object,const char &c);
 	void KeepMoveObject(Object object,const char &c); //need to think over it!!!!!!!!!!!!!!!
-    void Move();
+	void Move(int x,int y);//Movement
 	void Update();
 };
-
-
-
 #endif

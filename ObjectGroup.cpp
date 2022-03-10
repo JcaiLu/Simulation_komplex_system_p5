@@ -131,7 +131,7 @@ Object::Object(int px,int py,int c){
 	this->X = px;
 	this->Y = py;
 	this->code = c;
-	this->GetDetectRange();
+	this->GetValueRange();
 	this->xInPixel = 0;
 	this->yInPixel = 0;
 	this->fishScale = 0;
@@ -141,7 +141,7 @@ Object::Object(int px,int py,int c){
 
 Object::Object(int c){
 	this->code = c;
-	this->GetDetectRange();
+	this->GetValueRange();
 	this->xInPixel = 0;
 	this->yInPixel = 0;
 	this->X = 0;
@@ -150,15 +150,19 @@ Object::Object(int c){
 	memset(this->shape,0,sizeof(this->shape)) ;
 }
 ////////////////////////////////////////////////////////////////
-void Object::GetDetectRange(){               	///ÐÞ¸ÄÌ½²â·¶Î§
+void Object::GetValueRange(){               	///ÐÞ¸ÄÌ½²â·¶Î§
 	switch(this->code){
 		case 0:this->detectRange = 0;
+			   this->warnRange = 0;
 			   break;
 		case 1:this->detectRange = 1;
+			   this->warnRange = 2;
 			   break;
-		case 2:this->detectRange = 2;
+		case 2:this->detectRange = 6;
+			   this->warnRange = 6;
 			   break;
-		case 3:this->detectRange = 3;
+		case 3:this->detectRange = 14;
+			   this->warnRange = 12;
 			   break;
 	}
 
@@ -170,21 +174,80 @@ void Object::GetDetectRange(){               	///ÐÞ¸ÄÌ½²â·¶Î§
 //..............
 //...........(B,D)
 
-void Object::GetDetectFeld(){
-	 this->GetDetectRange();
+void Object::GetDetectFeld(){           //detecting Range
+	 this->GetValueRange();
 	 int Range = this->detectRange;
 	 this->detectFeld[0] = this->X - Range;
 	 this->detectFeld[1] = this->X + Range;
 	 this->detectFeld[2] = this->Y - Range;
 	 this->detectFeld[3] = this->Y + Range;
+	 this->BoundaryTreatment(this->detectFeld);
+}
+
+void Object::GetWarnFeld(){            //Warning Range
+	 this->GetValueRange();
+	 int Range = this->warnRange;
+	 this->warnFeld[0] = this->X - Range;
+	 this->warnFeld[1] = this->X + Range;
+	 this->warnFeld[2] = this->Y - Range;
+	 this->warnFeld[3] = this->Y + Range;
+	 this->BoundaryTreatment(this->warnFeld);
 }
 
 
+void Object::GetHuntFeld(){            //Hunting Range
+	 int huntRange;
+	 if(this->code == 3){
+		 huntRange =2;
+	 }else if(this->code == 2){
+		 huntRange =1;
+	 }
+	 this->huntFeld[0] = this->X - huntRange;
+	 this->huntFeld[1] = this->X + huntRange;
+	 this->huntFeld[2] = this->Y - huntRange;
+	 this->huntFeld[3] = this->Y + huntRange;
+	 this->BoundaryTreatment(this->huntFeld);
+
+}
+
+void Object::GetPossibleFeld(){        //Possible Range
+	 int possibleRange;
+	 if(this->code == 2){
+		 this->huntRange = 2;
+	 }else if(this->code == 1){
+		 this->huntRange =1;
+	 }
+	 this->possibleFeld[0] = this->X - possibleRange;
+	 this->possibleFeld[1] = this->X + possibleRange;
+	 this->possibleFeld[2] = this->Y - possibleRange;
+	 this->possibleFeld[3] = this->Y + possibleRange;
+	 this->BoundaryTreatment(this->possibleFeld);
+}
 
 
+void Object::BoundaryTreatment(int arr[]){      // this is used to avoid the object run out of SeaFeld
+	SeaFeld *a;
+
+	if(arr[0]<0){
+		arr[0] = a->w+arr[0];
+	}
+
+	if(arr[1]>a->w){
+		arr[1] = arr[1] - a->w;
+	}
+
+	if(arr[2]<0){
+		arr[2] = 0;
+	}
+
+	if(arr[3]>0){
+		arr[3] = a->h;
+	}
+
+	delete a;
 
 
-
+}
 
 
 

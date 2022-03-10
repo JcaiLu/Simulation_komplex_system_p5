@@ -26,18 +26,18 @@ public:
 	static const char d = 'd';
 
 	void Init(){
-        getMW = GetMaxW();
-        getMH = GetMaxH();
-		Feld.FeldInit(getMW,getMH);
-		Reset();
-        DrawInit();
-		ChartInit();
+	getMW = GetMaxW();
+	getMH = GetMaxH();
+	Feld.FeldInit(getMW,getMH);
+	Reset();
+	DrawInit();
+	ChartInit();
 
 		////////Test
 
-        Feld.InitObject();
-		Feld.CreatObject(0,0,1);
-		Feld.CreatObject(1,1,2);
+	Feld.InitObject();
+	Feld.CreatObject(0,0,1);
+	Feld.CreatObject(1,1,2);
 		////////Test
 	}
 

@@ -10,11 +10,11 @@ class Object{
 
 
 public:
-    Object(int px,int py,int c);
-    Object(int c);
+	Object(int px,int py,int c);
+	Object(int c);
 	Object();
-    int code;           //the code of animal
-    int xInPixel;
+	int code;           //the code of animal
+	int xInPixel;
 	int yInPixel;
 	int X,Y;         //the location of this animal
 	int shape[10][10];
@@ -22,7 +22,7 @@ public:
 	double degreeFull; //the degree of full
 	double degreeLife;//the Degreeof Life
 
-	char Direction;    //w(up),s(down),a(left),d(right)
+	int Direction;    //0(up),1(down),2(left),3(right)
 	float Speed;
 
 public:
@@ -46,13 +46,24 @@ public:
 	static const int shapeHai[10][10];
 
 	int detectRange;           /////自身属性
-	void GetDetectRange();
+	int warnRange;
+	int huntRange;
+	int warnFeld[4];
 	int detectFeld[4];             /////根据位置的变动的探测范围
-	void GetDetectFeld();
-
 	int huntFeld[4];
+	int possibleFeld[4];            /////可能在的范围
+
+	void GetValueRange();
+	void GetDetectFeld();
+	void GetWarnFeld();
 	void GetHuntFeld();
-    int Speed；
+	void GetPossibleFeld();
+
+private:
+	void BoundaryTreatment(int arr[]);
+
+public:
+
 	int fishScale;
 	/////////////Target Information
 	int target[2];
