@@ -8,6 +8,8 @@
 
 class Object{
 
+private:
+	void BoundaryTreatment(int arr[]);
 
 public:
 	Object(int px,int py,int c);
@@ -22,10 +24,9 @@ public:
 	double degreeFull; //the degree of full
 	double degreeLife;//the Degreeof Life
 
-	int Direction;    //0(up),1(down),2(left),3(right)
+	int direction;    //0(up),1(down),2(left),3(right)
 	float Speed;
 
-public:
 	int GetX();
 	int GetY();
 	void ReadX(int value);
@@ -57,17 +58,15 @@ public:
 	void GetDetectFeld();
 	void GetWarnFeld();
 	void GetHuntFeld();
+
 	void GetPossibleFeld();
 
-private:
-	void BoundaryTreatment(int arr[]);
-
 public:
-
 	int fishScale;
 	/////////////Target Information
 	int target[2];
 	int targetDirection;
+	int speed;
 
 };
 

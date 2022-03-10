@@ -45,11 +45,6 @@ bool Object::IfLive(){
         }
 }
 
-void Object::Objectencode(int t){
-    switch(t){
-		case 0 : break;
-    }
-}
 
 void Object::CopyOf(int t){
 	this->code = t;

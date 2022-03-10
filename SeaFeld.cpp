@@ -12,7 +12,8 @@
 #pragma package(smart_init)
 
 void SeaFeld::Update(){
-	for(int i = 0; i < this->matrix.size();i++){
+
+	for(int i = 0;i < this->matrix.size();i++){
 		if (this->matrix[i].code == 3) {
 			if(this->TargetLocation(this->matrix[i])){
 
@@ -184,11 +185,42 @@ bool SeaFeld::TargetLocation(const Object &object){
 	 }
 }
 //////////// 需要补充
-void SeaFeld::Move(int x,int y){      //Movement
-	 int num = this->XYIntoNum(x,y);
-	 int targetX, targetY;
-	 targetX = this->matrix[num].target[0];
-	 targetY = this->matrix[num].target[1];
+void SeaFeld::Move(const Object &object){      //Movement
+
+	 int xmin,xmax,ymin,ymax;
+	 if(object.target[1]>=0){
+
+		xmin= object.detectFeld[0];
+		xmax= object.detectFeld[1];
+		ymin= object.detectFeld[2];
+		ymax= object.detectFeld[3];
+
+		for(int j = ymin; j<=ymax;j++ ){
+			for(int i = xmin;i<=xmax;i++){
+				this->DestoryObject(i,j);
+			}
+		}
+	 }
+
+
+	 for (int i = 0; i < object.speed; i++) {
+		 switch(object.direction)
+		 {
+			  case '0' : DestoryObject(object.X,object.Y+i);
+						 break;
+
+			  case '1' : DestoryObject(object.X,object.Y-i);
+						 break;
+
+			  case '2' : DestoryObject(object.X-i,object.Y);
+						 break;
+
+			  case '3' : DestoryObject(object.X+i,object.Y);
+						 break;
+		 }
+	 }
+
+	 ////////////////////对象复制  (这个OBJECT的信息复制到新的target的坐标上
 }
 
 ////////////需要补充
