@@ -52,7 +52,7 @@ public:
 
 	int huntFeld[4];
 	void GetHuntFeld();
-    int Speed£»
+   // int Speed£»
 	int fishScale;
 	/////////////Target Information
 	int target[2];

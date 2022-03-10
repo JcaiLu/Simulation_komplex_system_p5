@@ -12,7 +12,7 @@
 #pragma package(smart_init)
 
 void SeaFeld::Update(){
-	for(int i = 0; i< this->matrix.Size();i++){
+	for(int i = 0; i< this->matrix.size();i++){
 		if (this->matrix[i].code == 3) {
 			if(this->TargetLocation(this->matrix[i])){
 
