@@ -21,7 +21,7 @@ public:
     int w,h;
 	//int startPointX, startPointY; //the Startpoint in real pixel
 
-	bool MaxFishLocation(const Object &object);
+	bool TargetLocation(const Object &object);
 
 
 	std::vector<Object> matrix;
@@ -36,12 +36,14 @@ public:
 	void DestoryObject(int m,int n);
 	void DestoryObject(int num);
 
+	void Search();     /////对 matrix 中的每一个目标进行遍历，根据code，确定鲨鱼及其捕捉的对象。并且储存其对象的当前坐标和游动方向和速度。
 	void Catch();     ////////////需要补充 如果需要输入参量
 	void RunAway();   ////////////
 
-
 	void MoveObject(Object object,const char &c);
 	void KeepMoveObject(Object object,const char &c); //need to think over it!!!!!!!!!!!!!!!
+    void Move();
+	void Update();
 };
 
 

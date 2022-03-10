@@ -18,29 +18,31 @@ class TUser : public TPlan{
 	double x,phi ;
 public:
 
-    int getMW,getMH;
-
-    SeaFeld Feld;
+	int getMW,getMH;
+	std::vector<int> SumOfFish;
+	std::vector<int> SumOfBigFish;
+	std::vector<int> SumOfHai;
+	SeaFeld Feld;
 	static const char d = 'd';
-    
-    void Init(){
 
+	void Init(){
         getMW = GetMaxW();
         getMH = GetMaxH();
 		Feld.FeldInit(getMW,getMH);
 		Reset();
-		DrawInit();
+        DrawInit();
 		ChartInit();
 
 		////////Test
-		Feld.InitObject();
+
+        Feld.InitObject();
 		Feld.CreatObject(0,0,1);
 		Feld.CreatObject(1,1,2);
 		////////Test
 	}
 
 	void Reset(){
-        SetPen(Schwarz);SetBrush(Weiss); SetTextSize(30);               // adjust the size and color of the word
+		SetPen(Schwarz);SetBrush(Weiss); SetTextSize(30);                // adjust the size and color of the word
 		Text((int)(GetMaxW()*0.25),(int)(GetMaxH()*0.05),"Feld of Sea");
 		ChartReset();
 	}
@@ -48,7 +50,6 @@ public:
 	void Run(){
 		DrawInit();
 		FeldDraw(Feld);
-		///////Testen
 		Feld.MoveObject(Feld.GetObject(0,0),d);
 		ChartRun();
 		CallRun = false;
@@ -63,8 +64,8 @@ public:
 			for(int x = 0; x < Feld.w; x++){          //Spalten
 				int colorDiff =255-(float)y/(float)Feld.h*100;
 				SetBrush(TColor(RGB(0,colorDiff,255)));
-				//SetPen(Schwarz);
-				SetPen(TColor(RGB(0,colorDiff,255)));
+				SetPen(Schwarz);
+				//SetPen(TColor(RGB(0,colorDiff,255)));
 				Rectangle(Feld.startScreenToLeft+x*Feld.pixelW,Feld.startScreenToTop+y*Feld.pixelW,Feld.pixelW,Feld.pixelW);
 			}
 		}
@@ -95,17 +96,17 @@ public:
 //Chart
 //====================================================================
 	 void ChartInit(){
-		Plot0->Size(GetMaxW()*0.55,GetMaxH()*0.08,700,900);
-        Plot0->Achse(0,"Time in Days [d]");
-        Plot0->Achse(0,0.0,100);
-        Plot0->Achse(1,0,1000);
-        Plot0->Achse(1,"Number of Fish [n]");
-        Plot0->Kurve0->SetPen(Hellrot,3);
-        Plot0->Kurve1->SetPen(Blau,3);
-        Plot0->Kurve2->SetPen(Schwarz,3);
-        InsertTaste(0,"Shark");
-		InsertTaste(1,"Salmon");
-		InsertTaste(2,"Small Fish");
+		 Plot0->Size(GetMaxW()*0.55,GetMaxH()*0.08,700,900);
+		 Plot0->Achse(0,"Time in Days [d]");
+		 Plot0->Achse(0,0.0,100);
+		 Plot0->Achse(1,0,1000);
+		 Plot0->Achse(1,"Number of Fish [n]");
+		 Plot0->Kurve0->SetPen(Hellrot,3);
+		 Plot0->Kurve1->SetPen(Blau,3);
+		 Plot0->Kurve2->SetPen(Schwarz,3);
+		 InsertTaste(0,"Shark");
+		 InsertTaste(1,"Salmon");
+		 InsertTaste(2,"Small Fish");
 	 }
 
 	 void ChartReset(){

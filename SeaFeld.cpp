@@ -11,6 +11,21 @@
 
 #pragma package(smart_init)
 
+void SeaFeld::Update(){
+	for(int i = 0; i< this->matrix.Size();i++){
+		if (this->matrix[i].code == 3) {
+			if(this->TargetLocation(this->matrix[i])){
+
+
+
+			}
+		}
+
+	}
+
+
+}
+
 void SeaFeld::FeldInit(int &getW,int &getH){
 	this->pixelW = 10;
     this->startScreenToLeft = (int)(getW*0.05);
@@ -132,9 +147,11 @@ void SeaFeld::MoveObject(Object object,const char &c){
 	}
 	 newNum = this->XYIntoNum(newX,newY);
 	 this->matrix[newNum].code = this->matrix[oldNum].code;
+	 ////////////////////对象复制
 	 this->DestoryObject(oldNum);
+	 ///////////////////////////下面的两行不要了
 	 this->matrix[newNum].CodeShapeUpdate();
-     this->matrix[oldNum].CodeShapeUpdate();
+	 this->matrix[oldNum].CodeShapeUpdate();
 
 }
 
@@ -143,7 +160,7 @@ void SeaFeld::KeepMoveObject(Object object,const char &c){
 }
 
 
-bool SeaFeld::MaxFishLocation(const Object &object){
+bool SeaFeld::TargetLocation(const Object &object){
 
 	 int tx,ty,bx,by;
 	 int max = 0;
@@ -168,6 +185,8 @@ bool SeaFeld::MaxFishLocation(const Object &object){
 		 return true;
 	 }
 }
+//////////// 需要补充
+
 
 ////////////需要补充
 void SeaFeld::Catch(){
@@ -177,3 +196,6 @@ void SeaFeld::Catch(){
 void SeaFeld::RunAway(){
 
 }
+
+
+

@@ -38,8 +38,6 @@ public:
 
 	bool IfFull();
 	bool IfLive();
-	void DetectFeld();
-	void JudegObject();
 	void DefShape();
 
 	static const int shapeSea[10][10];
@@ -49,22 +47,24 @@ public:
 
 	int detectRange;           /////自身属性
 	void GetDetectRange();
-
 	int detectFeld[4];             /////根据位置的变动的探测范围
 	void GetDetectFeld();
 
+	int huntFeld[4];
+	void GetHuntFeld();
+    int Speed；
 	int fishScale;
-
-
-};
-
-
-
-
-
-class Hai : public Object{    //
+	/////////////Target Information
+	int target[2];
+	int targetDirection;
 
 };
+
+
+
+
+
+
 
 
 

@@ -27,15 +27,6 @@ void Object::ReadY(int value){
 }
 
 
-void Object::DetectFeld(){       //
-
-}
-
-
-void Object::JudegObject(){      //
-
-}
-
 
 bool Object::IfFull(){
         if(this->degreeFull>0.8){
