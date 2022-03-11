@@ -10,15 +10,16 @@
 
 class SeaFeld{
 
-
 public:
-	int playScreenW,playScreenH;
-	int startScreenToBottom;
-	int startScreenToTop; //the distance from the top PlayScreen to the top Frame
-	int startScreenToLeft;//the distance from the left PlayScreen to the left Frame
-	int startScreenToRight;
-	int w,h;
-	int pixelW;           //PixelW = PixelH the wide and heigh of the each point are the same
+
+    int playScreenW,playScreenH;
+    int startScreenToBottom;
+	int startScreenToTop;//the distance from the top PlayScreen to the top Frame
+    int pixelW; //PixelW = PixelH the wide and heigh of the each point are the same
+    int startScreenToLeft;//the distance from the left PlayScreen to the left Frame
+    int startScreenToRight;
+    int w,h;
+	//int startPointX, startPointY; //the Startpoint in real pixel
 
 	bool TargetLocation(const Object &object);
 
