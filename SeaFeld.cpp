@@ -32,7 +32,6 @@ void SeaFeld::FeldInit(int &getW,int &getH){
 	this->playScreenH = (int)((getH - this->startScreenToTop - this->startScreenToBottom)/this->pixelW);
 	this->w = playScreenW;
 	this->h = playScreenH;
-
 }
 
 //---------------------------------------------------------------------------
@@ -61,22 +60,101 @@ void SeaFeld::InitObject(){
 //---------------------------------------------------------------------------
 //The Function Update() is the main and the most important program. It descirbes
 //the flow chart of our Rules.
-//
+//  最重要的地方
 //---------------------------------------------------------------------------
 void SeaFeld::Update(){
 
 	for(int i = 0;i < this->matrix.size();i++){
-		if (this->matrix[i].code == 3) {
-			if(this->TargetLocation(this->matrix[i])){
+		if (this->matrix[i].code == 3) {       // if not Hai
+			if(this->ifHaveTarget(this->matrix[i])){      //if Hai has target
+				int tx = this->matrix[i].target[0];
+				int ty = this->matrix[i].target[1];
+				int m1 = this->GetObjectA(tx,ty).possibleFeld[0];
+				int m2 = this->GetObjectA(tx,ty).possibleFeld[1];
+				int n1 = this->GetObjectA(tx,ty).possibleFeld[2];
+				int n2 = this->GetObjectA(tx,ty).possibleFeld[3];
+				int bigFishMax = 0;
+				int bigFishX = 0;
+				int bigFishY = 0;
 
+				if(m1<m2){
+					for(int m = m1; m <= m2; m++){
+						for(int n = n1; n <= n2; n++){
+							if(this->GetObjectA(m,n).fishScale>bigFishMax){
+								if(this->GetObjectA(m,n).code == 1 ||this->GetObjectA(m,n).code == 2){
+									bigFishMax = this->GetObjectA(m,n).fishScale;
+									bigFishX = m;
+									bigFishY = n;
+								}
+							}
+						}
 
+					}
+				}else if(m1>m2){
+					for(int m = 0; m <= m2; m++){
+						for(int n = n1; n <= n2; n++){
+							if(this->GetObjectA(m,n).fishScale>bigFishMax){
+								if(this->GetObjectA(m,n).code == 1 ||this->GetObjectA(m,n).code == 2){
+									bigFishMax = this->GetObjectA(m,n).fishScale;
+									bigFishX = m;
+									bigFishY = n;
+								}
+							}
+						}
 
+					}
+					for(int m = m1; m <= this->w; m++){
+						for(int n = n1; n <= n2; n++){
+							if(this->GetObjectA(m,n).fishScale>bigFishMax){
+								if(this->GetObjectA(m,n).code == 1 ||this->GetObjectA(m,n).code == 2){
+									bigFishMax = this->GetObjectA(m,n).fishScale;
+									bigFishX = m;
+									bigFishY = n;
+								}
+							}
+						}
+
+					}
+				}
+				
+				if(bigFishX != 0 || bigFishY !=0){
+					this->matrix[i].target[0] = bigFishX;
+					this->matrix[i].target[1] = bigFishY;
+				}else{
+					this->SerchNewTarget(this->matrix[i]);
+				}
+
+			}else{
+				this->SerchNewTarget(this->matrix[i]);
 			}
-		}
 
+		/////////////////////////////////
+		 //Move
+		/////////////////////////////////
+		}
 	}
 
+	for(int i = 0;i < this->matrix.size();i++){
+		if(this->matrix[i].code == 2){   // if BigFish
+		//////////////////////////////////
+			int m1 =  this->matrix[i].warnFeld[0];
+			int m2 =  this->matrix[i].warnFeld[1];
+			int n1 =  this->matrix[i].warnFeld[2];
+			int n2 =  this->matrix[i].warnFeld[3];
+			for(int m = m1; m <= m2;m++){
+				for (int n = n1; i <= n2; n++) {
+					if(this->GetObjectA(m,n).code);
+				}
+			}
+		//////////////////////////////////
+		}
+	}
 
+	for(int i = 0;i < this->matrix.size();i++){
+		if(this->matrix[i].code == 1){    // if SmallFish
+
+		}
+	}
 }
 
 //---------------------------------------------------------------------------
@@ -116,9 +194,10 @@ Object SeaFeld::GetObject(int i, int j){
 //The following Function are used to creat or destory a object according to
 // the code in the SeaFeld.
 //---------------------------------------------------------------------------
-void SeaFeld::CreatObject(int m, int n,int code){  //
+void SeaFeld::CreatObject(int m, int n,int code,int dir){  //
 	 int num = this->XYIntoNum(m,n);
 	 this->matrix[num].CopyOf(code);
+	 this->matrix[num].direction = dir;
 }
 
 void SeaFeld::DestoryObject(int m,int n){
@@ -219,47 +298,95 @@ void SeaFeld::MoveObject(Object object,const char &c){
 				 break;
 
 	}
-	 newNum = this->XYIntoNum(newX,newY);
-	 this->matrix[newNum].code = this->matrix[oldNum].code;
-	 ////////////////////对象复制
-	 this->DestoryObject(oldNum);
-	 ///////////////////////////下面的两行不要了
-	 this->matrix[newNum].CodeShapeUpdate();
-	 this->matrix[oldNum].CodeShapeUpdate();
+	newNum = this->XYIntoNum(newX,newY);
+	this->matrix[newNum].code = this->matrix[oldNum].code;
+	////////////////////对象复制
+	this->DestoryObject(oldNum);
+	///////////////////////////下面的两行不要了
+	this->matrix[newNum].CodeShapeUpdate();
+	this->matrix[oldNum].CodeShapeUpdate();
 
 }
 
+//---------------------------------------------------------------------------
+//The following Function SerchNewTarget is used to judge if this object has
+// a
+//---------------------------------------------------------------------------
 
 
+bool SeaFeld::ifHaveTarget(const Object &object){
 
-bool SeaFeld::TargetLocation(const Object &object){
+	int tx,ty;
+	bool ifThis = false;
+	tx = object.target[0];
+	ty = object.target[1];
 
-	 int tx,ty,bx,by,num;
-	 tx = object.detectFeld[0];
-	 bx = object.detectFeld[1];
-	 ty = object.detectFeld[2];
-	 by = object.detectFeld[3];
-	 int max = 0;
-	 for(int j = ty; j<by+1;j++ ){
-		 for(int i = tx;i<bx+1;i++){
-			 num = this->XYIntoNum(i,j);
-			 if(this->matrix[num].fishScale>max){
-				 max =this->matrix[num].fishScale;
-			 }
-		 }
-	 }
+	if( tx >= 0 && tx <= this->w && ty >= 0 && ty ){
+		ifThis = true;
+	}else if(tx==0 & ty ==0){
+		ifThis = false;
+	}
 
-	 if(max == 0){
-		 return false;
-	 }else{
-		 return true;
-	 }
+	return ifThis;
+
 }
-//////////// 需要补充
+//---------------------------------------------------------------------------
+//The following Function SerchNewTarget is used to rewrite the target Information
+//of this object.
+//---------------------------------------------------------------------------
+void SeaFeld::SerchNewTarget(Object object){
+	int m1 =  object.detectFeld[0];
+	int m2 =  object.detectFeld[1];
+	int n1 =  object.detectFeld[2];
+	int n2 =  object.detectFeld[3];
+	int max = 0;
+	int maxX,maxY;
+	int codeDiff = 0;
+	
+	if(m1 < m2){
+		for(int m = m1; m <= m2; m++){
+			for(int n = n1; n <= n2; n++){				
+				codeDiff = object.code - this->GetObjectA(m,n).code;
+				if(codeDiff == 1 && this->GetObjectA(m,n).fishScale>max){
+					max = this->GetObjectA(m,n).fishScale;
+					maxX = m;
+					maxY = n;
+				}		
+			}
+		}
+	}else if(m1>m2){
+		for(int m = 0; m <= m2; m++){
+			for(int n = n1; n <= n2; n++){			
+				codeDiff = object.code - this->GetObjectA(m,n).code;
+				if(codeDiff == 1 && this->GetObjectA(m,n).fishScale>max){
+					max = this->GetObjectA(m,n).fishScale;
+					maxX = m;
+					maxY = n;
+				}		
+			}
+		}
+		for(int m = m1; m <= this->w; m++){
+			for(int n = n1; n <= n2; n++){
+				codeDiff = object.code - this->GetObjectA(m,n).code;
+				if(codeDiff == 1 && this->GetObjectA(m,n).fishScale>max){
+					max = this->GetObjectA(m,n).fishScale;
+					maxX = m;
+					maxY = n;
+				}		
+			}
+		}
+		object.target[0] = maxX;
+		object.target[1] = maxY;
+		//根据目标改变的方向目前只有左右
+		if(maxX>object.X){           //目标在自己的右边
+			object.direction = 3;
+		}else{
+			object.direction = 2;    //目标在自己的左边
+		}
+	}	
+	
 
 
-////////////需要补充
-void SeaFeld::Catch(){
 
 }
 ////////////需要补充

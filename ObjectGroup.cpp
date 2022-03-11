@@ -18,17 +18,22 @@ Object::Object(int c){
 	this->yInPixel = 0;
 	this->X = 0;
 	this->Y = 0;
+	this->direction = 1;
+	this->RandomDirection();
 	this->fishScale = 0;
 	memset(this->shape,0,sizeof(this->shape)) ;
 }
 
 Object::Object(int px,int py,int c){
-	this->X = px;
-	this->Y = py;
+
 	this->code = c;
 	this->GetValueRange();
 	this->xInPixel = 0;
 	this->yInPixel = 0;
+	this->X = px;
+	this->Y = py;
+	this->direction = 1;
+	this->RandomDirection();
 	this->fishScale = 0;
 	memset(this->shape,0,sizeof(this->shape)) ;
 
@@ -47,17 +52,17 @@ void Object::GetValueRange(){         //Set corresponding Value of the range
 			   break;
 		case 1:this->detectRange = 1;
 			   this->warnRange = 2;
-			   this->possibleFeld = 1;
+			   this->possibleRange = 1;
 			   this->huntRange = 0;
 			   break;
 		case 2:this->detectRange = 6;
 			   this->warnRange = 6;
-			   this->possibleFeld = 2;
+			   this->possibleRange = 2;
 			   this->huntRange = 1;
 			   break;
 		case 3:this->detectRange = 14;
 			   this->warnRange = 12;
-			   this->possibleFeld = 3;
+			   this->possibleRange = 3;
 			   this->huntRange = 2;
 			   break;
 	}
@@ -199,6 +204,7 @@ void Object::CodeShapeUpdate(){
 //---------------------------------------------------------------------------
 
 void Object::BoundaryTreatment(int arr[]){      // this is used to avoid the object run out of SeaFeld
+
 	SeaFeld *a;
 
 	if(arr[0]<0){
@@ -219,6 +225,31 @@ void Object::BoundaryTreatment(int arr[]){      // this is used to avoid the obj
 
 	delete a;
 
+}
+//---------------------------------------------------------------------------
+// The Following Function is used to set a Random Direction to this object.
+//
+//---------------------------------------------------------------------------
+/*
+void Object::RandomDirection(){
+
+	int r = 0;
+	r = rand()%4;
+	this->direction = r;
+
+}
+*/
+   void Object :: RandomDirection(){
+		double r=0.0;
+		r=(rand()%3-1)*3.14;
+		this->direction =r;
+   }
+
+void Object::RandomDirectionLR(){
+
+	int r = 0;
+	r = rand()%2+2;
+	this->direction = r;
 
 }
 //---------------------------------------------------------------------------
@@ -262,9 +293,16 @@ bool Object::IfLive(){
 
 //---------------------------------------------------------------------------
 //The following constants are used to describe the shape of the code
-//Input Type: array
 //---------------------------------------------------------------------------
+void Object::Rotation(int arr[10][10]){
+	int arr2[10][10];
+	for(int ai = 0;ai<10;ai++){
 
+
+		}
+
+
+}
 
 const int Object::shapeSea[10][10]={
 {0,0,0,0,0,0,0,0,0,0},

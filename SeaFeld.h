@@ -20,7 +20,7 @@ public:
 	int w,h;
 	int pixelW;           //PixelW = PixelH the wide and heigh of the each point are the same
 
-	bool TargetLocation(const Object &object);
+	bool ifHaveTarget(const Object &object);
 
 
 	std::vector<Object> matrix;
@@ -31,11 +31,11 @@ public:
 	int NumIntoY(int &num);
 	Object GetObject(int i, int j);
 	void InitObject();
-	void CreatObject(int m, int n,int code);
+	void CreatObject(int m, int n,int code,int dir);
 	void DestoryObject(int m,int n);
 	void DestoryObject(int num);
 
-	void Search();     /////对 matrix 中的每一个目标进行遍历，根据code，确定鲨鱼及其捕捉的对象。并且储存其对象的当前坐标和游动方向和速度。
+	void SerchNewTarget(Object object);     /////对 matrix 中的每一个目标进行遍历，根据code，确定鲨鱼及其捕捉的对象。并且储存其对象的当前坐标和游动方向和速度。
 	void Catch();     ////////////需要补充 如果需要输入参量
 	void RunAway();   ////////////
 

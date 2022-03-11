@@ -16,7 +16,7 @@
 class TUser : public TPlan{
 	bool k0,k1,k2;
 	int x,a,b,c,j,s;
-        int y0,y1,y2,y;
+	int y0,y1,y2,y;
 public:
 
 	int getMW,getMH;
@@ -34,12 +34,13 @@ public:
 	DrawInit();
 	ChartInit();
 
-		////////Test
-
+	////////Test
 	Feld.InitObject();
-	Feld.CreatObject(0,0,1);
-	Feld.CreatObject(1,1,2);
-		////////Test
+	Feld.CreatObject(2,2,2,0);
+	Feld.CreatObject(5,5,3,1);
+	Feld.CreatObject(2,3,2,2);
+	Feld.CreatObject(7,7,1,3);
+	////////Test
 	}
 
 	void Reset(){
@@ -123,73 +124,73 @@ public:
                 // Text(Feld.startScreenToLeft*3,Feld.startScreenToTop/2,"Feld of Sea");
 		 Text((int)(GetMaxW()*0.73),(int)(GetMaxH()*0.05),"Living Fish");
 		 Plot0->Reset();
-                 Plot1->Reset();
+		 Plot1->Reset();
 		 k0 = true ;
 		 k1 = true ;
 		 k2 = true ;
 //		 x = 0;
-                 s = 1;
-                SumOfFish.push_back(0);
-                SumOfBigFish.push_back(0);
-                SumOfHai.push_back(0);
+		 s = 1;
+		 SumOfFish.push_back(0);
+		 SumOfBigFish.push_back(0);
+		 SumOfHai.push_back(0);
 	 }
 
 
 	 void ChartRun(){
-                Plot0->Reset();
-                Plot1->Reset();
-                //test
-                Feld.CreatObject(y1,y0,1);
-                Feld.CreatObject(y2,y0,2);
-                Feld.CreatObject(y2+5,y0,2);
-                Feld.CreatObject(y2+8,y0,0);
-                y0++;
-                //test
-                 a = 0;
-                 b = 0;
-                 c = 0;
-                for (int i=0;i < Feld.matrix.size();i++){
-                        if (Feld.matrix[i].code == 0){
-                        a++;
-                        }
-                        if (Feld.matrix[i].code == 1){
-                        b++;
-                        }
-                        if (Feld.matrix[i].code == 2){
-                        c++;
-                        }
-                }
-                SumOfFish.push_back(c);
-                SumOfBigFish.push_back(b);
-                SumOfHai.push_back(a);
-                s++;
-                j = 1 ;
-                if(k0){
-                        Plot0->Kurve0->SetPen(Hellrot,10);
-                        Plot1->Kurve3->SetPen(Hellrot,10);
-                }
-                if(k1){
-                        Plot0->Kurve1->SetPen(Gruen,10);
-                        Plot1->Kurve4->SetPen(Gruen,10);
-                }
-                if(k2){
-                        Plot0->Kurve2->SetPen(Hellgelb,10);
-                        Plot1->Kurve5->SetPen(Hellgelb,10);
-                }
-                for (int i = 0;i < s ;i++){
-                        Plot0->Kurve0->LineTo(i,SumOfHai[i]);
-                        Plot0->Kurve1->LineTo(i,SumOfBigFish[i]);
-                        Plot0->Kurve2->LineTo(i,SumOfFish[i]);
-                        if (j < s){
-                                Plot1->Kurve3->LineTo(i,SumOfHai[j]-SumOfHai[i]);
-                                Plot1->Kurve4->LineTo(i,SumOfBigFish[j]-SumOfBigFish[i]);
-                                Plot1->Kurve5->LineTo(i,SumOfFish[j]-SumOfFish[i]);
-                                j++;
-                        }
+		 Plot0->Reset();
+		 Plot1->Reset();
+		 /*//test
+		 Feld.CreatObject(y1,y0,1);
+		 Feld.CreatObject(y2,y0,2);
+		 Feld.CreatObject(y2+5,y0,2);
+		 Feld.CreatObject(y2+8,y0,0);
+		 y0++;
+		 //test  */
+		 a = 0;
+		 b = 0;
+		 c = 0;
+		 for (int i=0;i < Feld.matrix.size();i++){
+			 if (Feld.matrix[i].code == 0){
+				 a++;
+			 }
+			 if (Feld.matrix[i].code == 1){
+				 b++;
+			 }
+			 if (Feld.matrix[i].code == 2){
+				 c++;
+			 }
+		 }
+		 SumOfFish.push_back(c);
+		 SumOfBigFish.push_back(b);
+		 SumOfHai.push_back(a);
+		 s++;
+		 j = 1 ;
+		 if(k0){
+			 Plot0->Kurve0->SetPen(Hellrot,10);
+			 Plot1->Kurve3->SetPen(Hellrot,10);
+		 }
+		 if(k1){
+			 Plot0->Kurve1->SetPen(Gruen,10);
+			 Plot1->Kurve4->SetPen(Gruen,10);
+		 }
+		 if(k2){
+			 Plot0->Kurve2->SetPen(Hellgelb,10);
+			 Plot1->Kurve5->SetPen(Hellgelb,10);
+		 }
+		 for (int i = 0;i < s ;i++){
+			 Plot0->Kurve0->LineTo(i,SumOfHai[i]);
+			 Plot0->Kurve1->LineTo(i,SumOfBigFish[i]);
+			 Plot0->Kurve2->LineTo(i,SumOfFish[i]);
+			 if (j < s){
+				 Plot1->Kurve3->LineTo(i,SumOfHai[j]-SumOfHai[i]);
+				 Plot1->Kurve4->LineTo(i,SumOfBigFish[j]-SumOfBigFish[i]);
+				 Plot1->Kurve5->LineTo(i,SumOfFish[j]-SumOfFish[i]);
+				 j++;
+			 }
 
-                }
+		 }
 
-         }
+	 }
 
 //====================================================================
 //Tasten

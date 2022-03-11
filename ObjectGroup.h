@@ -21,11 +21,20 @@ public:
 	int X,Y;         //the location of this animal
 	int shape[10][10];
 
-	double degreeFull; //the degree of full
-	double degreeLife;//the Degreeof Life
 
 	int direction;    //0(up),1(down),2(left),3(right)
+	void RandomDirection();
+	void RandomDirectionLR();
 	float Speed;
+    int fishScale;
+	/////////////Target Information
+	int target[2];
+	int targetDirection;
+	int speed;
+
+
+	double degreeFull; //the degree of full
+	double degreeLife;//the Degreeof Life
 
 	int GetX();
 	int GetY();
@@ -45,6 +54,7 @@ public:
 	static const int shapeFish[10][10];
 	static const int shapeBigFish[10][10];
 	static const int shapeHai[10][10];
+	void Rotation(int arr[10][10]);      //Ë³Ê±ÕëÐý×ª
 //---------------------------------------------------------------------------
 //The following declaration is used to change the relevant range of the object.
 //---------------------------------------------------------------------------
@@ -64,14 +74,11 @@ public:
 	void GetWarnFeld();
 	void GetHuntFeld();
 	void GetPossibleFeld();
+
 //---------------------------------------------------------------------------
 //
 //---------------------------------------------------------------------------
-	int fishScale;
-	/////////////Target Information
-	int target[2];
-	int targetDirection;
-	int speed;
+
 
 };
 
