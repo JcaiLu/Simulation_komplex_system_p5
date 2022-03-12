@@ -65,7 +65,13 @@ void SeaFeld::InitObject(){
 //---------------------------------------------------------------------------
 void SeaFeld::Update(){
 
-	for(int i = 0;i < this->matrix.size();i++){
+	this->Hai();
+	this->BigFish();
+	this->Fish();
+}
+
+void SeaFeld::Hai(){
+   	for(int i = 0;i < this->matrix.size();i++){
 		if (this->matrix[i].code == 3) {       // if not Hai
 			if(this->ifHaveTarget(this->matrix[i])){      //if Hai has target
 				int tx = this->matrix[i].target[0];
@@ -74,18 +80,18 @@ void SeaFeld::Update(){
 				int m2 = this->GetObjectA(tx,ty).possibleFeld[1];
 				int n1 = this->GetObjectA(tx,ty).possibleFeld[2];
 				int n2 = this->GetObjectA(tx,ty).possibleFeld[3];
-				int bigFishMax = 0;
-				int bigFishX = 0;
-				int bigFishY = 0;
+				int FishScaleMax = 0;
+				int maxFishX = 0;
+				int maxFishY = 0;
 
 				if(m1<m2){
 					for(int m = m1; m <= m2; m++){
 						for(int n = n1; n <= n2; n++){
-							if(this->GetObjectA(m,n).fishScale>bigFishMax){
+							if(this->GetObjectA(m,n).fishScale>FishScaleMax){
 								if(this->GetObjectA(m,n).code == 1 ||this->GetObjectA(m,n).code == 2){
-									bigFishMax = this->GetObjectA(m,n).fishScale;
-									bigFishX = m;
-									bigFishY = n;
+									FishScaleMax = this->GetObjectA(m,n).fishScale;
+									maxFishX = m;
+									maxFishY = n;
 								}
 							}
 						}
@@ -93,11 +99,11 @@ void SeaFeld::Update(){
 				}else if(m1>m2){
 					for(int m = 0; m <= m2; m++){
 						for(int n = n1; n <= n2; n++){
-							if(this->GetObjectA(m,n).fishScale>bigFishMax){
+							if(this->GetObjectA(m,n).fishScale>FishScaleMax){
 								if(this->GetObjectA(m,n).code == 1 ||this->GetObjectA(m,n).code == 2){
-									bigFishMax = this->GetObjectA(m,n).fishScale;
-									bigFishX = m;
-									bigFishY = n;
+									FishScaleMax = this->GetObjectA(m,n).fishScale;
+									maxFishX = m;
+									maxFishY = n;
 								}
 							}
 						}
@@ -105,21 +111,21 @@ void SeaFeld::Update(){
 					}
 					for(int m = m1; m <= this->w; m++){
 						for(int n = n1; n <= n2; n++){
-							if(this->GetObjectA(m,n).fishScale>bigFishMax){
+							if(this->GetObjectA(m,n).fishScale>FishScaleMax){
 								if(this->GetObjectA(m,n).code == 1 ||this->GetObjectA(m,n).code == 2){
-									bigFishMax = this->GetObjectA(m,n).fishScale;
-									bigFishX = m;
-									bigFishY = n;
+									FishScaleMax = this->GetObjectA(m,n).fishScale;
+									maxFishX = m;
+									maxFishY = n;
 								}
 							}
 						}
 
 					}
 				}
-				
-				if(bigFishX != 0 || bigFishY !=0){
-					this->matrix[i].target[0] = bigFishX;
-					this->matrix[i].target[1] = bigFishY;
+
+				if(maxFishX != 0 || maxFishY !=0){
+					this->matrix[i].target[0] = maxFishX;
+					this->matrix[i].target[1] = maxFishY;
 				}else{
 					this->SerchNewTarget(this->matrix[i]);
 				}
@@ -128,13 +134,15 @@ void SeaFeld::Update(){
 				this->SerchNewTarget(this->matrix[i]);
 			}
 
-		/////////////////////////////////
-		 //Move
-		/////////////////////////////////
+		this->Move(this->matrix[i]);
 		}
 	}
 
-	for(int i = 0;i < this->matrix.size();i++){
+}
+
+
+void SeaFeld::BigFish(){
+    	for(int i = 0;i < this->matrix.size();i++){
 		if(this->matrix[i].code == 2){   // if BigFish
 		//////////////////////////////////
 			int m1 =  this->matrix[i].warnFeld[0];
@@ -155,8 +163,17 @@ void SeaFeld::Update(){
 
 		}
 	}
+
+
+
 }
 
+
+void SeaFeld::Fish(){
+
+
+
+}
 //---------------------------------------------------------------------------
 //The following three Function are used to translate the X,Y to the Nummer of
 //the Vector.

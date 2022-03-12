@@ -43,5 +43,8 @@ public:
 	void KeepMoveObject(Object object,const char &c); //need to think over it!!!!!!!!!!!!!!!
 	void Move(Object object);//Movement
 	void Update();
+	void Hai();
+	void BigFish();
+	void Fish();
 };
 #endif

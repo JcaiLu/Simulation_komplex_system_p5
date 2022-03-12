@@ -36,10 +36,8 @@ public:
 
 	////////Test
 	Feld.InitObject();
-	Feld.CreatObject(2,2,2,0);
-	Feld.CreatObject(5,5,3,1);
-	Feld.CreatObject(2,3,2,2);
-	Feld.CreatObject(7,7,1,3);
+	Feld.CreatObject(1,1,3,0);
+	//Feld.Hai();
 	////////Test
 	}
 
