@@ -23,6 +23,7 @@ public:
 
 
 	int direction;    //0(up),1(down),2(left),3(right)
+	int directiond;
 	void RandomDirection();
 	void RandomDirectionLR();
 	float Speed;

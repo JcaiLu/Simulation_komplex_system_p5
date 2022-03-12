@@ -7,6 +7,7 @@
 #include "SeaFeld.h"
 #include "ObjectGroup.h"
 #include <vector>
+
 //---------------------------------------------------------------------------
 
 #pragma package(smart_init)
@@ -88,7 +89,6 @@ void SeaFeld::Update(){
 								}
 							}
 						}
-
 					}
 				}else if(m1>m2){
 					for(int m = 0; m <= m2; m++){
@@ -215,42 +215,81 @@ void SeaFeld::DestoryObject(int num){
 //The following Function are used to realize a Movement of a object according
 //to the given direction.
 //---------------------------------------------------------------------------
-void SeaFeld::Move(const Object &object){      //Movement
+void SeaFeld::Move(Object object){      //Movement
 
-	 int xmin,xmax,ymin,ymax;
-	 if(object.target[1]>=0){
+	int y=object.target[1]-object.Y;
+	int x=object.target[0]-object.X;
+	int ax=object.target[0]-this->w-object.X;
+		if (abs(x)>abs(ax)) {
+			x=ax;
+		}
+	double s=sqrt(x^2+y^2);
 
-		xmin= object.detectFeld[0];
-		xmax= object.detectFeld[1];
-		ymin= object.detectFeld[2];
-		ymax= object.detectFeld[3];
+	object.directiond=asin(y/s);
+	if (x<=0) {
+		object.directiond=3.14-object.directiond;
+	}
 
-		for(int j = ymin; j<=ymax;j++ ){
-			for(int i = xmin;i<=xmax;i++){
-				this->DestoryObject(i,j);
+	int flag=0;
+	if(object.target[1]>=0){
+		if (s<=object.speed) {
+		   flag=1;      //target exist && in this updata catch the target
+		}
+	}
+
+	// eat the target range
+	if (flag==1) {
+		int xmin,xmax,ymin,ymax;
+		xmin= object.possibleFeld[0];
+		xmax= object.possibleFeld[1];
+		ymin= object.possibleFeld[2];
+		ymax= object.possibleFeld[3];
+
+		if (xmax<xmin) {
+		   for(int j = ymin; j<=ymax;j++ ){
+				for(int i = xmin;i<=w;i++){
+					this->DestoryObject(i,j);
+				}
+				for(int i = 0;i<=xmax;i++){
+					this->DestoryObject(i,j);
+				}
+			}
+		}else{
+			for(int j = ymin; j<=ymax;j++ ){
+				for(int i = xmin;i<=xmax;i++){
+					this->DestoryObject(i,j);
+				}
 			}
 		}
 	 }
 
-
-	 for (int i = 0; i < object.speed; i++) {
-		 switch(object.direction)
-		 {
-			  case '0' : DestoryObject(object.X,object.Y+i);
-						 break;
-
-			  case '1' : DestoryObject(object.X,object.Y-i);
-						 break;
-
-			  case '2' : DestoryObject(object.X-i,object.Y);
-						 break;
-
-			  case '3' : DestoryObject(object.X+i,object.Y);
-						 break;
-		 }
+	 int a=object.X;
+	 int b=object.Y;
+	 int imax=0;
+	 if (flag==1) {
+			imax =(int)s;
+	 }else{
+		  imax=object.speed;
+	  }
+	 for (int i = 0; i < imax; i++) {
+		   int a=(int)(cos(object.directiond)+0.5)+a;
+		   int b=(int)(sin(object.directiond)+0.5)+b;
+		   if (a<0) {
+			   a=a+this->w;
+		   }
+		   if(b<0){
+				b=0;
+				int anglet=rand()%2;
+				if (anglet==0) {
+					object.directiond=-3.14;
+				}else{
+					object.directiond=3.14;
+                }
+		   }
+		   this->DestoryObject(a,b);
 	 }
-
-	 ////////////////////对象复制  (这个OBJECT的信息复制到新的target的坐标上
+   this->matrix[this->XYIntoNum(a,b)]=object;
+   this->DestoryObject(object.X,object.Y);
 }
 
 void SeaFeld::MoveObject(Object object,const char &c){
@@ -383,10 +422,7 @@ void SeaFeld::SerchNewTarget(Object object){
 		}else{
 			object.direction = 2;    //目标在自己的左边
 		}
-	}	
-	
-
-
+	}
 
 }
 ////////////需要补充
