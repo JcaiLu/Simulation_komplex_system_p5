@@ -16,7 +16,6 @@
 class TUser : public TPlan{
 	bool k0,k1,k2;
 	int x,a,b,c,j,s;
-   //	int y0,y1,y2,y;
 public:
 
 	int getMW,getMH;
@@ -97,6 +96,7 @@ public:
 //====================================================================
 	 void ChartInit(){
                 Plot0->Size(GetMaxW()*0.55,GetMaxH()*0.08,getMW/2.5,getMH/2.3);
+                Plot0->Titel="Number Of Fish";
                 Plot0->Achse(0,"Time in Days [d]");
                 Plot0->Achse(0,0.0,100);
                 Plot0->Achse(1,0.0,1000);
@@ -105,6 +105,7 @@ public:
                 InsertTaste(1,"Salmon");
                 InsertTaste(2,"Small Fish");
                 Plot1->Size(GetMaxW()*0.55,GetMaxH()*0.53,getMW/2.5,getMH/2.3);
+                Plot1->Titel="Changes Of Fish";
                 Plot1->Achse(0,"Time in Days [d]");
                 Plot1->Achse(1,"Changes of Fish [n/d] ");
                 Plot1->Achse(0,0.0,100);
@@ -115,7 +116,7 @@ public:
 	 void ChartReset(){
 		 SetPen(Schwarz);SetBrush(Weiss); SetTextSize(30);               // adjust the size and color of the word
                  SetTextColor(Schwarz);
-		 Text((int)(GetMaxW()*0.73),(int)(GetMaxH()*0.05),"Living Fish");
+		// Text((int)(GetMaxW()*0.73),(int)(GetMaxH()*0.05),"Living Fish");
                  SetTextSize(20);
                  SetTextColor(Hellrot);
                  Text((int)(GetMaxW()*0.90),(int)(GetMaxH()*0.02),"----- Shark");
@@ -124,7 +125,9 @@ public:
                  SetTextColor(Gelb);
                  Text((int)(GetMaxW()*0.90),(int)(GetMaxH()*0.06),"----- Small Fish");
 		 Plot0->Reset();
-		 Plot1->Reset();
+                 Plot0->Achse(0,0.0,100);
+                 Plot1->Reset();
+		 Plot1->Achse(0,0.0,100);
 		 k0 = true ;
 		 k1 = true ;
 		 k2 = true ;
@@ -157,7 +160,6 @@ public:
 		 SumOfBigFish.push_back(b);
 		 SumOfHai.push_back(a);
 		 s++;
-		 j = 1 ;
 		 if(k0){
 			 Plot0->Kurve0->SetPen(Hellrot,3);
 			 Plot1->Kurve3->SetPen(Hellrot,3);
@@ -170,6 +172,7 @@ public:
 			 Plot0->Kurve2->SetPen(Gelb,3);
 			 Plot1->Kurve5->SetPen(Gelb,3);
 		 }
+                 j = 1 ;
 		 for (int i = 0;i < s ;i++){
 			 Plot0->Kurve0->LineTo(i,SumOfHai[i]);
 			 Plot0->Kurve1->LineTo(i,SumOfBigFish[i]);
@@ -178,10 +181,14 @@ public:
 				 Plot1->Kurve3->LineTo(i,SumOfHai[j]-SumOfHai[i]);
 				 Plot1->Kurve4->LineTo(i,SumOfBigFish[j]-SumOfBigFish[i]);
 				 Plot1->Kurve5->LineTo(i,SumOfFish[j]-SumOfFish[i]);
-				 j++;
+                                 j++;
 			 }
 
 		 }
+                 if (s%100==0) {
+                       Plot0->MoveAchse(0);
+                       Plot1->MoveAchse(0);
+                 }
 
 	 }
 
