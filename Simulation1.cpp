@@ -133,7 +133,9 @@ public:
                  SetTextColor(Gelb);
                  Text((int)(GetMaxW()*0.90),(int)(GetMaxH()*0.06),"----- Small Fish");
 		 Plot0->Reset();
+                 Plot0->Achse(0,0.0,100);
 		 Plot1->Reset();
+                 Plot1->Achse(0,0.0,100);
 		 k0 = true ;
 		 k1 = true ;
 		 k2 = true ;
@@ -191,6 +193,10 @@ public:
 			 }
 
 		 }
+                 if(s%100==0){
+                        Plot0->MoveAchse(0);
+                        Plot1->MoveAchse(0);
+                 }
 
 	 }
 
