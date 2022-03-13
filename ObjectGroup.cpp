@@ -21,6 +21,12 @@ Object::Object(int c){
 	this->direction = 1;
 	this->RandomDirection();
 	this->fishScale = 0;
+	this->target[0] = -1;
+	this->target[1] = -1;
+	this->GetDetectFeld();
+	this->GetHuntFeld();
+	this->GetPossibleFeld();
+	this->GetWarnFeld();
 	memset(this->shape,0,sizeof(this->shape)) ;
 }
 
@@ -35,6 +41,12 @@ Object::Object(int px,int py,int c){
 	this->direction = 1;
 	this->RandomDirection();
 	this->fishScale = 0;
+	this->target[0] = -1;
+	this->target[1] = -1;
+	this->GetDetectFeld();
+	this->GetHuntFeld();
+	this->GetPossibleFeld();
+	this->GetWarnFeld();
 	memset(this->shape,0,sizeof(this->shape)) ;
 
 }
@@ -156,7 +168,41 @@ void Object::CopyOf(int t){
 				 }
 				 break;
 	}
+	this->fishScale =0;
+	this->target[0] = 0;
+	this->target[1] = 0;
+	this->targetDirection = 3;
+	this->direction = 0;
+	this->directiond = 0;
+	this->detectRange = 0;
+	this->detectRange = 0;
+	this->detectRange = 0;
+	this->detectRange = 0;
+
 }
+
+void Object::CopyOf(Object object){
+
+	this->code = object.code;
+	this->fishScale =object.fishScale;
+	this->target[0] = object.target[0];
+	this->target[1] = object.target[1];
+	this->targetDirection = object.targetDirection;
+	this->direction = object.direction;
+	this->directiond = object.directiond;
+	this->detectRange = object.detectRange;
+	this->detectRange = object.warnRange;
+	this->detectRange = object.possibleRange;
+	this->detectRange = object.huntRange;
+
+	memcpy(this->shape,object.shape,sizeof(object.shape));
+	memcpy(this->detectFeld,object.detectFeld,sizeof(object.detectFeld));
+	memcpy(this->warnFeld,object.warnFeld,sizeof(object.warnFeld));
+	memcpy(this->possibleFeld,object.possibleFeld,sizeof(object.possibleFeld));
+	memcpy(this->huntFeld,object.huntFeld,sizeof(object.huntFeld));
+}
+
+
 //---------------------------------------------------------------------------
 //The following Function is  update the Shape of this according to this code
 //---------------------------------------------------------------------------
@@ -203,28 +249,25 @@ void Object::CodeShapeUpdate(){
 //Input Type: array
 //---------------------------------------------------------------------------
 
-void Object::BoundaryTreatment(int arr[]){      // this is used to avoid the object run out of SeaFeld
+void Object::BoundaryTreatment(arrayType arr){      // this is used to avoid the object run out of SeaFeld
 
-	SeaFeld *a;
+	SeaFeld a;
 
-	if(arr[0]<0){
-		arr[0] = a->w+arr[0];
+	if(*(arr)<0){
+		*(arr) = this->w+*(arr);
 	}
 
-	if(arr[1]>a->w){
-		arr[1] = arr[1] - a->w;
+	if(*(arr+1)> (this->w) ){
+		*(arr+1) = *(arr+1) - this->w;
 	}
 
-	if(arr[2]<0){
-		arr[2] = 0;
+	if(*(arr+2)<0){
+		*(arr+2) = 0;
 	}
 
-	if(arr[3]>0){
-		arr[3] = a->h;
+	if(*(arr+3)>this->h){
+		*(arr+3) = this->h;
 	}
-
-	delete a;
-
 }
 //---------------------------------------------------------------------------
 // The Following Function is used to set a Random Direction to this object.
@@ -239,10 +282,10 @@ void Object::RandomDirection(){
 
 }
 */
-   void Object :: RandomDirection(){
-		double r=0.0;
-		r=(rand()%3-1)*3.14;
-		this->direction =r;
+void Object::RandomDirection(){
+	double r=0.0;
+	r=(rand()%3-1)*3.14;
+	this->direction =r;
    }
 
 void Object::RandomDirectionLR(){
@@ -298,8 +341,7 @@ void Object::Rotation(int arr[10][10]){
 	int arr2[10][10];
 	for(int ai = 0;ai<10;ai++){
 
-
-		}
+	}
 
 
 }

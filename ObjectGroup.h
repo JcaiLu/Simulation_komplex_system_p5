@@ -8,10 +8,13 @@
 
 class Object{
 
-private:
-	void BoundaryTreatment(int arr[]);
+
+
+
 
 public:
+	typedef int arrayType[];
+	void BoundaryTreatment(arrayType);
 	Object(int px,int py,int c);
 	Object(int c);
 	Object();
@@ -20,18 +23,19 @@ public:
 	int yInPixel;
 	int X,Y;         //the location of this animal
 	int shape[10][10];
-
+    int w,h;
 
 	int direction;    //0(up),1(down),2(left),3(right)
 	int directiond;
 	void RandomDirection();
 	void RandomDirectionLR();
 	float Speed;
+	int speed;
     int fishScale;
 	/////////////Target Information
 	int target[2];
 	int targetDirection;
-	int speed;
+
 
 
 	double degreeFull; //the degree of full
@@ -45,6 +49,7 @@ public:
 	void Objectencode(int t);
 	void ObjectDraw(int ColorNum);    //ColorNum is used to reload the color of sea
 	void CopyOf(int t);
+	void CopyOf(Object object);
 	void CodeShapeUpdate();
 
 	bool IfFull();

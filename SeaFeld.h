@@ -22,7 +22,6 @@ public:
 
 	bool ifHaveTarget(const Object &object);
 
-
 	std::vector<Object> matrix;
 
 	void FeldInit(int &getW,int &getH);
@@ -31,7 +30,7 @@ public:
 	int NumIntoY(int &num);
 	Object GetObject(int i, int j);
 	void InitObject();
-	void CreatObject(int m, int n,int code,int dir);
+	void CreatObject(int m, int n,int code,int dir,int scale);
 	void DestoryObject(int m,int n);
 	void DestoryObject(int num);
 

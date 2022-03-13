@@ -36,8 +36,11 @@ public:
 
 	////////Test
 	Feld.InitObject();
-	Feld.CreatObject(1,1,3,0);
-	//Feld.Hai();
+	Feld.CreatObject(0,0,3,0,100);
+   //	Feld.CreatObject(2,0,2,0,100);
+   //	Feld.CreatObject(10,0,2,0,200);
+	FeldDraw(Feld);
+
 	////////Test
 	}
 
@@ -49,8 +52,8 @@ public:
 
 	void Run(){
 		DrawInit();
+		Feld.Hai();
 		FeldDraw(Feld);
-		Feld.MoveObject(Feld.GetObject(0,0),d);
 		ChartRun();
 		CallRun = false;
 
@@ -73,13 +76,19 @@ public:
 	}
 
 	void ObjectDraw(SeaFeld playFeld,Object t){
+		if(t.code != 0){
 		for(int j = 0;j<playFeld.pixelW;j++){
 			for(int i = 0;i <playFeld.pixelW;i++){
 				if(t.shape[j][i] != 0){
 					SetPixel(t.xInPixel+i,t.yInPixel+j,Schwarz);
+					/////Test
+					int mmmm =t.code;
+					int mmm1 = t.X;
+					int mmm2 = t.Y;
 				}
 			}
 		}
+        }
 }
 	 void FeldDraw(SeaFeld playFeld){
 		 for(int j = 0;j<playFeld.h;j++){
@@ -89,8 +98,6 @@ public:
 				 }
 			 }
 		 }
-
-
 	 }
 //====================================================================
 //Chart
@@ -137,13 +144,6 @@ public:
 	 void ChartRun(){
 		 Plot0->Reset();
 		 Plot1->Reset();
-		 /*//test
-		 Feld.CreatObject(y1,y0,1);
-		 Feld.CreatObject(y2,y0,2);
-		 Feld.CreatObject(y2+5,y0,2);
-		 Feld.CreatObject(y2+8,y0,0);
-		 y0++;
-		 //test  */
 		 a = 0;
 		 b = 0;
 		 c = 0;
@@ -210,6 +210,14 @@ public:
                  Plot0->Kurve2->SetPen(Klar,10);
                  Plot1->Kurve5->SetPen(Klar,10);
 	 }
+
+	 void RunTaste3(){
+
+
+
+
+	 }
+
 
  };
 
