@@ -32,7 +32,6 @@ public:
 	float Speed;
 	int speed;
     int fishScale;
-	/////////////Target Information
 	int target[2];
 	int targetDirection;
 

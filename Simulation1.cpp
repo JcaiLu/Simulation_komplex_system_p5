@@ -37,8 +37,8 @@ public:
 	////////Test
 	Feld.InitObject();
 	Feld.CreatObject(0,0,3,0,100);
-   //	Feld.CreatObject(2,0,2,0,100);
-   //	Feld.CreatObject(10,0,2,0,200);
+	Feld.CreatObject(2,0,2,0,100);
+	Feld.CreatObject(10,0,2,0,200);
 	FeldDraw(Feld);
 
 	////////Test
