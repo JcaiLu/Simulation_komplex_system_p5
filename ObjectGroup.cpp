@@ -178,15 +178,12 @@ void Object::CopyOf(int t){
 	this->detectRange = 0;
 	this->detectRange = 0;
 	this->detectRange = 0;
-
 }
 
 void Object::CopyOf(Object object){
 
 	this->code = object.code;
 	this->fishScale =object.fishScale;
-	this->target[0] = object.target[0];
-	this->target[1] = object.target[1];
 	this->targetDirection = object.targetDirection;
 	this->direction = object.direction;
 	this->directiond = object.directiond;
@@ -195,6 +192,7 @@ void Object::CopyOf(Object object){
 	this->detectRange = object.possibleRange;
 	this->detectRange = object.huntRange;
 
+	memcpy(this->target,object.target,sizeof(object.target));
 	memcpy(this->shape,object.shape,sizeof(object.shape));
 	memcpy(this->detectFeld,object.detectFeld,sizeof(object.detectFeld));
 	memcpy(this->warnFeld,object.warnFeld,sizeof(object.warnFeld));

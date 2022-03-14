@@ -125,21 +125,21 @@ void SeaFeld::Hai(){
 					}
 				}
 
-				if(maxFishX != 0 || maxFishY !=0){
+				if(maxFishX != 0 && maxFishY !=0){
 					this->matrix[i].target[0] = maxFishX;
 					this->matrix[i].target[1] = maxFishY;
 				}else{
 					this->SerchNewTarget(this->matrix[i]);
 				}
-				this->Move(this->matrix[i]);
-				break;
+
+
 			}else{
 				this->SerchNewTarget(this->matrix[i]);
-				this->Move(this->matrix[i]);
-				break;
+				//this->Move(this->matrix[i]);
+
 			}
 			this->Move(this->matrix[i]);
-			break;
+
 		}
 
 	}
@@ -231,7 +231,7 @@ void SeaFeld::CreatObject(int m, int n,int code,int dir,int scale){  //
 
 void SeaFeld::DestoryObject(int m,int n){
 	 int num = this->XYIntoNum(m,n);
-	 this->matrix[num] = Object(0);
+	 this->matrix[num].CopyOf(0);
 }
 
 void SeaFeld::DestoryObject(int num){
@@ -251,7 +251,7 @@ void SeaFeld::Move(Object object){      //Movement
 	if (abs(distancex)>abs(ax)) {
 	   distancex=ax;
 	}
-	double s=sqrt(distancex^2+distancey^2);
+	int s=sqrt(distancex^2+distancey^2);
 	object.directiond=asin(distancey/s);
 	if (distancex<=0) {
 		object.directiond=3.14-object.directiond;
@@ -321,8 +321,8 @@ void SeaFeld::Move(Object object){      //Movement
 	  int targeti = this->XYIntoNum(targetx,targety);
 
 	  this->matrix[targeti].CopyOf(object);
-	  this->matrix[targeti].X = object.target[0];
-	  this->matrix[targeti].Y = object.target[1];
+	  this->matrix[targeti].X = a;
+	  this->matrix[targeti].Y = b;
 	  this->DestoryObject(object.X,object.Y);
 }
 
@@ -343,7 +343,7 @@ bool SeaFeld::ifHaveTarget(const Object &object){
 	tx = object.target[0];
 	ty = object.target[1];
 
-	if( tx >= 0 && tx <= this->w && ty >= 0 && ty ){
+	if( tx >= 0 && tx <= this->w && ty >= 0 && ty <= this->h){
 		ifThis = true;
 	}else if(tx==0 & ty ==0){
 		ifThis = false;

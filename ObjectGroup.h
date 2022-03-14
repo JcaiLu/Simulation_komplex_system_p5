@@ -29,8 +29,7 @@ public:
 	int directiond;
 	void RandomDirection();
 	void RandomDirectionLR();
-	float Speed;
-	int speed;
+	float speed;
     int fishScale;
 	int target[2];
 	int targetDirection;
