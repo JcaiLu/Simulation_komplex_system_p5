@@ -26,13 +26,14 @@ public:
     int w,h;
 
 	int direction;    //0(up),1(down),2(left),3(right)
-	int directiond;
+	double directiond;
 	void RandomDirection();
 	void RandomDirectionLR();
 	float speed;
     int fishScale;
 	int target[2];
 	int targetDirection;
+	bool ifmoved;      //if moved, ifmoved =1
 
 
 

@@ -19,6 +19,7 @@ Object::Object(int c){
 	this->X = 0;
 	this->Y = 0;
 	this->direction = 1;
+	this->directiond = 0;
 	this->RandomDirection();
 	this->fishScale = 0;
 	this->target[0] = -1;
@@ -27,6 +28,7 @@ Object::Object(int c){
 	this->GetHuntFeld();
 	this->GetPossibleFeld();
 	this->GetWarnFeld();
+	this->ifmoved = 0;
 	memset(this->shape,0,sizeof(this->shape)) ;
 }
 
@@ -39,6 +41,7 @@ Object::Object(int px,int py,int c){
 	this->X = px;
 	this->Y = py;
 	this->direction = 1;
+	this->directiond = 0;
 	this->RandomDirection();
 	this->fishScale = 0;
 	this->target[0] = -1;
@@ -47,6 +50,7 @@ Object::Object(int px,int py,int c){
 	this->GetHuntFeld();
 	this->GetPossibleFeld();
 	this->GetWarnFeld();
+	this->ifmoved = 0;
 	memset(this->shape,0,sizeof(this->shape)) ;
 
 }
@@ -61,21 +65,25 @@ void Object::GetValueRange(){         //Set corresponding Value of the range
 			   this->warnRange = 0;
 			   this->possibleRange = 0;
 			   this->huntRange = 0;
+			   this->speed = 0;
 			   break;
 		case 1:this->detectRange = 1;
 			   this->warnRange = 2;
 			   this->possibleRange = 1;
 			   this->huntRange = 0;
+			   this->speed = 1;
 			   break;
-		case 2:this->detectRange = 6;
-			   this->warnRange = 6;
+		case 2:this->detectRange = 3;
+			   this->warnRange = 3;
+			   this->possibleRange = 1;
+			   this->huntRange = 1;
+			   this->speed = 2;
+			   break;
+		case 3:this->detectRange = 5;
+			   this->warnRange = 5;
 			   this->possibleRange = 2;
 			   this->huntRange = 1;
-			   break;
-		case 3:this->detectRange = 14;
-			   this->warnRange = 12;
-			   this->possibleRange = 3;
-			   this->huntRange = 2;
+			   this->speed = 4;
 			   break;
 	}
 }
@@ -178,6 +186,7 @@ void Object::CopyOf(int t){
 	this->detectRange = 0;
 	this->detectRange = 0;
 	this->detectRange = 0;
+	this->ifmoved = 0;
 }
 
 void Object::CopyOf(Object object){
@@ -191,6 +200,7 @@ void Object::CopyOf(Object object){
 	this->detectRange = object.warnRange;
 	this->detectRange = object.possibleRange;
 	this->detectRange = object.huntRange;
+	this->ifmoved = object.ifmoved;
 
 	memcpy(this->target,object.target,sizeof(object.target));
 	memcpy(this->shape,object.shape,sizeof(object.shape));

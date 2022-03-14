@@ -36,9 +36,24 @@ public:
 
 	////////Test
 	Feld.InitObject();
-	Feld.CreatObject(1,0,3,0,100);
-	Feld.CreatObject(2,0,2,0,100);
+	Feld.CreatObject(1,0,3,0,1);
+	Feld.CreatObject(3,0,2,0,20);
+	Feld.CreatObject(5,0,2,0,200);
+	Feld.CreatObject(7,0,2,0,500);
+	Feld.CreatObject(10,0,2,0,400);
 	Feld.CreatObject(10,0,2,0,200);
+
+	 Feld.Update();        //1-5   stop  at 5
+
+	 int ccccc= Feld.matrix[5].target[0];
+	 ccccc= Feld.matrix[5].target[1];
+
+	 Feld.Update();        //5-7   stop at 7
+	 Feld.Update();
+	 FeldDraw(Feld);
+
+
+
 	FeldDraw(Feld);
 	////////Test
 	}
@@ -51,7 +66,7 @@ public:
 
 	void Run(){
 		DrawInit();
-		Feld.Hai();
+		Feld.Update();
 		FeldDraw(Feld);
 		ChartRun();
 		CallRun = false;
@@ -80,10 +95,7 @@ public:
 			for(int i = 0;i <playFeld.pixelW;i++){
 				if(t.shape[j][i] != 0){
 					SetPixel(t.xInPixel+i,t.yInPixel+j,Schwarz);
-					/////Test
-					int mmmm =t.code;
-					int mmm1 = t.X;
-					int mmm2 = t.Y;
+
 				}
 			}
 		}

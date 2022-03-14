@@ -40,15 +40,18 @@ public:
 
 	void MoveObject(Object object,const char &c);
 	void KeepMoveObject(Object object,const char &c); //need to think over it!!!!!!!!!!!!!!!
-	void Move(Object object);//Movement
+
 	void Update();
 	void Hai();
 	void BigFish();
 	void Fish();
 	bool ifTarget(int i);
 	bool ifTarget(int x,int y);
-	void noTargetMove(Object object);
-	void targetEat(Object object);
-	void targetMove(Object object,double s);
+	void Move(int i);//Movement
+	void noTargetMove(int i);
+	void targetEat(int i);
+	void targetMove(int i,double s);
+	void Target(int i);
+	bool Chased(int i);
 };
 #endif
