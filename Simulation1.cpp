@@ -40,7 +40,6 @@ public:
 	Feld.CreatObject(2,0,2,0,100);
 	Feld.CreatObject(10,0,2,0,200);
 	FeldDraw(Feld);
-
 	////////Test
 	}
 

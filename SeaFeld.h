@@ -45,5 +45,10 @@ public:
 	void Hai();
 	void BigFish();
 	void Fish();
+	bool ifTarget(int i);
+	bool ifTarget(int x,int y);
+	void noTargetMove(Object object);
+	void targetEat(Object object);
+	void targetMove(Object object,double s);
 };
 #endif

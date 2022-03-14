@@ -243,6 +243,7 @@ void SeaFeld::DestoryObject(int num){
 //The following Function are used to realize a Movement of a object according
 //to the given direction.
 //---------------------------------------------------------------------------
+/*
 void SeaFeld::Move(Object object){      //Movement
 
 	int distancey=object.target[1]-object.Y;
@@ -325,6 +326,9 @@ void SeaFeld::Move(Object object){      //Movement
 	  this->matrix[targeti].Y = b;
 	  this->DestoryObject(object.X,object.Y);
 }
+
+
+*/
 
 void SeaFeld::MoveObject(Object object,const char &c){
 	
@@ -413,6 +417,158 @@ void SeaFeld::SerchNewTarget(Object object){
 }
 
 ///////ÐèÒª²¹³ä
+
+//---------------------------------------------------------------------------
+//The following Function are used to decide if the object has target
+//---------------------------------------------------------------------------
+bool SeaFeld::ifTarget(int i){       //if target exist
+	if (this->matrix[i].target[1]>=0) {
+		return 1;
+	}else{
+		return 0;
+	}
+}
+bool SeaFeld::ifTarget(int x,int y){       //if target exist
+	int i = this->XYIntoNum(x,y);
+	if (this->matrix[i].target[1]>=0) {
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+
+//---------------------------------------------------------------------------
+//The following Function are used to realize a Movement of a object according
+//to the given direction.
+//---------------------------------------------------------------------------
+void SeaFeld::Move(Object object){      //Movement
+
+	if(this->ifTarget(object.X,object.Y)){
+		int distancey=object.target[1]-object.Y;
+		int distancex=object.target[0]-object.X;
+		int ax=object.target[0]-this->w-object.X;
+		if (abs(distancex)>abs(ax)) {
+		   distancex=ax;
+		}
+		float s=sqrt(distancex^2+distancey^2);   //++s=0?
+		object.directiond=asin(distancey/s);
+		if (distancex<=0) {
+			object.directiond=3.14-object.directiond;
+		}
+		if (s<=object.speed) {
+		   this->targetEat(object);
+		   this->targetMove(object,s);
+		}
+	}else{                             //target not exist ==only have direction?direction
+		this->noTargetMove(object);
+	}
+}
+
+
+//---------------------------------------------------------------------------
+//The following Function are used to eat fish of the direction&&move
+// to the furthest position
+//---------------------------------------------------------------------------
+
+void SeaFeld::noTargetMove(Object object ){
+     int a=object.X;
+	 int b=object.Y;
+	 for (int p = 0; p < object.speed; p++) {
+		   a=(int)(cos(object.directiond)+0.5)+a;      //directiond?direction
+		   b=(int)(sin(object.directiond)+0.5)+b;
+//         a=cos(object.direction)+a;
+//		   b=sin(object.direction)+b;
+
+		   if (a<0) {
+			   a=a+this->w;
+		   }
+		   if(b<0){
+				b=0;
+				int anglet=rand()%2;
+				if (anglet==0) {
+					object.directiond=-3.14;
+				}else{
+					object.directiond=3.14;
+				}
+		   }
+
+		   this->DestoryObject(a,b);
+	 }
+	  int targetx = object.target[0];
+	  int targety = object.target[1];
+	  int targeti = this->XYIntoNum(targetx,targety);
+
+	  this->matrix[targeti].CopyOf(object);
+	  this->matrix[targeti].X = a;
+	  this->matrix[targeti].Y = b;
+
+	//  this->matrix[targeti].X = object.target[0];
+	//  this->matrix[targeti].Y = object.target[1];
+	  this->DestoryObject(object.X,object.Y);
+}
+
+
+//---------------------------------------------------------------------------
+//The following Function are used eat the fish of in the target area
+//---------------------------------------------------------------------------
+void SeaFeld:: targetEat(Object object){
+	int xmin,xmax,ymin,ymax;
+	xmin= object.possibleFeld[0];
+	xmax= object.possibleFeld[1];
+	ymin= object.possibleFeld[2];
+	ymax= object.possibleFeld[3];
+	if (xmax<xmin) {
+	   for(int j = ymin; j<=ymax;j++ ){
+			for(int i = xmin;i<=w;i++){
+				this->DestoryObject(i,j);
+			}
+			for(int i = 0;i<=xmax;i++){
+				this->DestoryObject(i,j);
+			}
+		}
+	}else{
+		for(int j = ymin; j<=ymax;j++ ){
+			for(int i = xmin;i<=xmax;i++){
+				this->DestoryObject(i,j);
+			}
+		}
+	}
+}
+
+//---------------------------------------------------------------------------
+//The following Function are used eat the fish eat fish of the direction&&move
+// to the target position&&move to the target position
+//---------------------------------------------------------------------------
+void SeaFeld::targetMove(Object object,double s){
+   int a=object.X;
+   int b=object.Y;
+   for (int p = 0; p < (int)s; p++) {
+	   a=(int)(cos(object.directiond)+0.5)+a;
+	   b=(int)(sin(object.directiond)+0.5)+b;
+	   if (a<0) {
+		   a=a+this->w;
+	   }
+	   if(b<0){
+			b=0;
+			int anglet=rand()%2;
+			if (anglet==0) {
+				object.directiond=-3.14;
+			}else{
+				object.directiond=3.14;
+			}
+	   }
+	   this->DestoryObject(a,b);
+	}
+	int targetx = object.target[0];
+	int targety = object.target[1];
+	int targeti = this->XYIntoNum(targetx,targety);
+
+	this->matrix[targeti].CopyOf(object);
+	this->matrix[targeti].X = object.target[0];
+	this->matrix[targeti].Y = object.target[1];
+    this->DestoryObject(object.X,object.Y);
+}
 
 void SeaFeld::RunAway(){
 
