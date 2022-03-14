@@ -22,7 +22,6 @@ public:
 
 	bool ifHaveTarget(const Object &object);
 
-
 	std::vector<Object> matrix;
 
 	void FeldInit(int &getW,int &getH);
@@ -31,7 +30,7 @@ public:
 	int NumIntoY(int &num);
 	Object GetObject(int i, int j);
 	void InitObject();
-	void CreatObject(int m, int n,int code,int dir);
+	void CreatObject(int m, int n,int code,int dir,int scale);
 	void DestoryObject(int m,int n);
 	void DestoryObject(int num);
 
@@ -41,7 +40,18 @@ public:
 
 	void MoveObject(Object object,const char &c);
 	void KeepMoveObject(Object object,const char &c); //need to think over it!!!!!!!!!!!!!!!
-	void Move(const Object &object);//Movement
+
 	void Update();
+	void Hai();
+	void BigFish();
+	void Fish();
+	bool ifTarget(int i);
+	bool ifTarget(int x,int y);
+	void Move(int i);//Movement
+	void noTargetMove(int i);
+	void targetEat(int i);
+	void targetMove(int i,double s);
+	void Target(int i);
+	bool Chased(int i);
 };
 #endif

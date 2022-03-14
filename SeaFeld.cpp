@@ -78,6 +78,19 @@ void SeaFeld::Update(){
 }
 
 void SeaFeld::Hai(){
+	for(int i = 0;i < this->matrix.size();++i){
+		 int test  =   this->matrix[5].code;
+		if (this->matrix[i].code == 3 ) {       // if not Hai     && this->matrix[i].ifmoved == 0
+			this->Target(i);
+		}
+		this->Move(i);
+	}
+
+}
+
+
+/*
+void SeaFeld::Hai(){
 	for(int i = 0;i < this->matrix.size();i++){
 		if (this->matrix[i].code == 3 && this->matrix[i].ifmoved == 0) {       // if not Hai
 
@@ -144,7 +157,6 @@ void SeaFeld::Hai(){
 				/////Test
 				int dddddd = this->matrix[5].target[0];
 					dddddd = this->matrix[5].target[1];
-				 //	dddddd = this->matrix[5].;
 					dddddd = this->matrix[9].code;
 
 
@@ -156,7 +168,7 @@ void SeaFeld::Hai(){
 
 }
 
-
+*/
 
 
 //---------------------------------------------------------------------------
@@ -224,78 +236,68 @@ void SeaFeld::DestoryObject(int num){
 //---------------------------------------------------------------------------
 
 
-void SeaFeld::MoveObject(Object object,const char &c){
-	
-}
 //---------------------------------------------------------------------------
 //The following Function SerchNewTarget is used to judge if this object has
 // a
 //---------------------------------------------------------------------------
 
-
-bool SeaFeld::ifHaveTarget(const Object &object){     // —— ——  - - ————————
-
-
-
-}
-
 //---------------------------------------------------------------------------
 //The following Function SerchNewTarget is used to rewrite the target Information
 //of this object.
 //---------------------------------------------------------------------------
-void SeaFeld::SerchNewTarget(Object object){
-	object.GetDetectFeld();
-	int m1 =  object.detectFeld[0];
-	int m2 =  object.detectFeld[1];
-	int n1 =  object.detectFeld[2];
-	int n2 =  object.detectFeld[3];
+void SeaFeld::SerchNewTarget(int i){
+	this->matrix[i].GetDetectFeld();
+	int m1 =  this->matrix[i].detectFeld[0];
+	int m2 =  this->matrix[i].detectFeld[1];
+	int n1 =  this->matrix[i].detectFeld[2];
+	int n2 =  this->matrix[i].detectFeld[3];
 	int max = 0;
 	int maxX = -1;
 	int maxY = -1;
 	int codeDiff = 0;
-	
+
 	if(m1 < m2){
 		for(int m = m1; m <= m2; m++){
 			for(int n = n1; n <= n2; n++){
-				codeDiff = object.code - this->GetObjectA(m,n).code;
+				codeDiff = this->matrix[i].code - this->GetObjectA(m,n).code;
 				if(codeDiff == 1 && this->GetObjectA(m,n).fishScale>max){
 					max = this->GetObjectA(m,n).fishScale;
 					maxX = m;
 					maxY = n;
-				}		
+				}
 			}
 		}
 	}else if(m1>m2){
 		for(int m = 0; m <= m2; m++){
 			for(int n = n1; n <= n2; n++){
-				codeDiff = object.code - this->GetObjectA(m,n).code;
+				codeDiff =this->matrix[i].code - this->GetObjectA(m,n).code;
 				if(codeDiff == 1 && this->GetObjectA(m,n).fishScale>max){
 					max = this->GetObjectA(m,n).fishScale;
 					maxX = m;
 					maxY = n;
-				}		
+				}
 			}
 		}
 		for(int m = m1; m <= this->w; m++){
 			for(int n = n1; n <= n2; n++){
-				codeDiff = object.code - this->GetObjectA(m,n).code;
+				codeDiff = this->matrix[i].code - this->GetObjectA(m,n).code;
 				if(codeDiff == 1 && this->GetObjectA(m,n).fishScale>max){
 					max = this->GetObjectA(m,n).fishScale;
 					maxX = m;
 					maxY = n;
-				}		
+				}
 			}
 		}
-		int num = this->XYIntoNum(object.X,object.Y);       //存入目标坐标值
+		int num = this->XYIntoNum(this->matrix[i].X,this->matrix[i].Y);       //存入目标坐标值
 		this->matrix[num].target[0] = maxX;
 		this->matrix[num].target[1] = maxY;
 
 		//根据目标改变的方向目前只有左右
 		if(this->matrix[num].target[0]!=-1){
-			if(maxX>object.X ){           //目标在自己的右边
-				object.direction = 3;
+			if(maxX>this->matrix[i].X ){           //目标在自己的右边
+				this->matrix[i].direction = 3;
 			}else{
-				object.direction = 2;    //目标在自己的左边
+				this->matrix[i].direction = 2;    //目标在自己的左边
 			}
 		}
 	}
@@ -331,6 +333,12 @@ void SeaFeld::Move(int i){      //Movement
 
 
 	this->matrix[i].ifmoved =1;
+
+	//test
+
+	int testx = this->matrix[i].target[0];
+	int	testy = this->matrix[i].target[1];
+
 
 	int ddd = this->matrix[1].ifmoved;
 	ddd = this->matrix[0].ifmoved;
@@ -471,10 +479,15 @@ void SeaFeld::targetMove(int i,double s){
 	   this->DestoryObject(a,b);
 	}
 	int targeti = this->XYIntoNum(this->matrix[i].target[0],this->matrix[i].target[1]);
+	 /////////////////////////
+
+	 int ccc = this->matrix[i].code;
 
 	this->matrix[targeti].CopyOf(this->matrix[i]);
 	this->matrix[targeti].X = this->matrix[i].target[0];
 	this->matrix[targeti].Y = this->matrix[i].target[1];
+
+	 ccc = this->matrix[i].code;
 
 	int num = this->XYIntoNum(this->matrix[i].target[0],this->matrix[i].target[1]);
 	this->matrix[num].target[0] = -1;
@@ -519,7 +532,7 @@ void SeaFeld::Fish(){
 
 
 void SeaFeld::Target(int i){
-	if(this->ifHaveTarget(this->matrix[i])){
+	if(this->ifTarget(i)){
 		int tx = this->matrix[i].target[0];
 		int ty = this->matrix[i].target[1];
 		int m1 = this->GetObjectA(tx,ty).possibleFeld[0];
@@ -571,11 +584,11 @@ void SeaFeld::Target(int i){
 			this->matrix[i].target[0] = maxFishX;
 			this->matrix[i].target[1] = maxFishY;
 		}else{
-			this->SerchNewTarget(this->matrix[i]);
+			this->SerchNewTarget(i);
 		}
 
 	}else{
-		this->SerchNewTarget(this->matrix[i]);
+		this->SerchNewTarget(i);
 	}
 }
 
